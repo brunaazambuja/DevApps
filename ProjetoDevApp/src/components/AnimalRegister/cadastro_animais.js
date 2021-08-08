@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import { StyleSheet, ScrollView, View, Text, TouchableOpacity} from 'react-native';
-import { Cadastro_Animais_Adocao } from './CadastroAnimaisAdocao';
-import { Cadastro_Animais_Apadrinhar } from './CadastroAnimaisApadrinhar';
-import { Cadastro_Animais_Ajuda } from './CadastroAnimaisAjuda';
+import { Cadastro_Animais_Adocao, CadastroAnimaisAdocaoCore } from './CadastroAnimaisAdocao';
+import { Cadastro_Animais_Apadrinhar, CadastroAnimaisApadrinharCore } from './CadastroAnimaisApadrinhar';
+import { Cadastro_Animais_Ajuda, CadastroAnimaisAjudaCore } from './CadastroAnimaisAjuda';
+import { CoreComum_1, CoreComum_2 } from './CoreComumCadastroAnimais';
 import {TopBar} from './TopBar';
 
 export const Cadastro_Animais = () => {
@@ -50,9 +51,35 @@ export const Cadastro_Animais = () => {
                     </TouchableOpacity>
                 </View>
             </View>
-            {adocao ? <Cadastro_Animais_Adocao></Cadastro_Animais_Adocao> : null}
-            {apad ? <Cadastro_Animais_Apadrinhar></Cadastro_Animais_Apadrinhar> : null}
-            {ajuda ? <Cadastro_Animais_Ajuda></Cadastro_Animais_Ajuda> : null}
+            {adocao ? 
+                <View style = {styles.viewOptionStyle}>
+                    <Text style = {styles.textTittleStyle}> Adoção </Text>
+                    <CoreComum_1></CoreComum_1>
+                    <CadastroAnimaisAdocaoCore></CadastroAnimaisAdocaoCore>
+                    {ajuda ?    <View>
+                                    <Text style = {styles.textTittleStyle}> Ajuda </Text> 
+                                    <CadastroAnimaisAjudaCore></CadastroAnimaisAjudaCore>
+                                </View>  : null}
+                    <CoreComum_2 name = 'Colocar Para Adoção'></CoreComum_2>
+                </View> : null}
+            {apad ? 
+                <View style = {styles.viewOptionStyle}>
+                    <Text style = {styles.textTittleStyle}> Apadrinhar </Text>
+                    <CoreComum_1></CoreComum_1>
+                    <CadastroAnimaisApadrinharCore></CadastroAnimaisApadrinharCore>
+                    {ajuda ?    <View>
+                                    <Text style = {styles.textTittleStyle}> Ajuda </Text> 
+                                    <CadastroAnimaisAjudaCore></CadastroAnimaisAjudaCore>
+                                </View>  : null}
+                    <CoreComum_2 name = 'Procurar Padrinho'></CoreComum_2>
+                </View> : null}
+            {(ajuda && (!apad && !adocao)) ? 
+                <View style = {styles.viewOptionStyle}>
+                    <Text style = {styles.textTittleStyle}> Ajuda </Text>
+                    <CoreComum_1></CoreComum_1> 
+                    <CadastroAnimaisAjudaCore></CadastroAnimaisAjudaCore>
+                    <CoreComum_2 name = 'Procurar Ajuda'></CoreComum_2>
+                </View> : null}
         </ScrollView>
     );
 };
@@ -86,5 +113,12 @@ const styles = StyleSheet.create({
         alignSelf : 'center',
         fontSize : 12,
         color : '#434343'
+    },
+    textTittleStyle : {
+        fontSize : 16,
+        color : '#434343'
+    },
+    viewOptionStyle : {
+        padding : 16
     }
 })

@@ -1,114 +1,13 @@
 import React, {useState} from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, TextInput} from 'react-native';
-import { Radio_Buttons_3 } from './RadioButtons3';
-import { Radio_Buttons_2 } from './RadioButtons2';
-import { CheckBox1, CheckBox2 , CheckBox3, CheckBox1_3} from './CheckBoxGroups';
+import { StyleSheet, View, Text, TextInput} from 'react-native';
+import { CheckBox1} from './CheckBoxGroups';
 
-export const Cadastro_Animais_Ajuda = () => {
-    const [nomeAnimal, setNomeAnimal] = useState('');
-    const [doencaAnimal, setDoencaAnimal] = useState('');
-    const [histAnimal, setHistAnimal] = useState('');
+export const CadastroAnimaisAjudaCore = () => {
     const [medicamentosAnimal, setMedicamentosAnimal] = useState('');
     const [objetosAnimal, setObjetosAnimal] = useState('');
 
-    const [ajudar, setAjudar] = useState(false);
-
-    const ajudarPress = () => setAjudar(!ajudar);
-
     return(
-        <View style = {styles.viewAjudar}>
-            <Text style = {styles.textAjudar}>Ajudar</Text>
-
-            <Text style = {styles.text2}>
-                Nome do Animal
-            </Text>
-
-            <TextInput
-                style = {styles.inputStyle}
-                onChangeText = {setNomeAnimal}
-                placeholder = 'Nome do Animal'
-                placeholderTextColor = '#bdbdbd'>
-            </TextInput>
-
-            <Text style = {styles.text2}>
-                Fotos do Animal
-            </Text>
-
-            <Text style = {styles.text2}>
-                Espécie
-            </Text>
-
-            <Radio_Buttons_2
-                name1 = 'Cachorro'
-                name2 = 'Gato'>
-            </Radio_Buttons_2>
-
-            <Text style = {styles.text2}>
-                Sexo
-            </Text>
-
-            <Radio_Buttons_2
-                name1 = 'Macho'
-                name2 = 'Fêmea'>
-            </Radio_Buttons_2>
-
-            <Text style = {styles.text2}>
-                Porte
-            </Text>
-
-            <Radio_Buttons_3
-                name1 = 'Pequeno'
-                name2 = 'Médio'
-                name3 = 'Grande'>
-            </Radio_Buttons_3>
-
-            <Text style = {styles.text2}>
-                Idade
-            </Text>
-
-            <Radio_Buttons_3
-                name1 = 'Filhote'
-                name2 = 'Adulto'
-                name3 = 'Idoso'>
-            </Radio_Buttons_3>
-
-            <Text style = {styles.text2}>
-                Temperamento
-            </Text>
-
-            <CheckBox3
-                name1 = 'Brincalhão'
-                name2 = 'Tímido'
-                name3 = 'Calmo'>
-            </CheckBox3>
-
-            <CheckBox3
-                name1 = 'Guarda'
-                name2 = 'Amoroso'
-                name3 = 'Preguiçoso'>
-            </CheckBox3>
-
-            <Text style = {styles.text2}>
-                Saúde
-            </Text>
-
-            <CheckBox2
-                name1 = 'Vacinado'
-                name2 = 'Vermifugado'>
-            </CheckBox2>
-
-            <CheckBox2
-                name1 = 'Castrado'
-                name2 = 'Doente'>
-            </CheckBox2>
-
-            <TextInput
-                style = {styles.inputStyle}
-                onChangeText = {setDoencaAnimal}
-                placeholder = 'Doenças do animal'
-                placeholderTextColor = '#bdbdbd'>
-            </TextInput>
-
+        <View>
             <Text style = {styles.text2}>
                 Necessidades do Animal
             </Text>
@@ -142,25 +41,6 @@ export const Cadastro_Animais_Ajuda = () => {
                 placeholder = 'Especifique o(s) objeto(s)'
                 placeholderTextColor = '#bdbdbd'>
             </TextInput>
-
-            <Text style = {styles.text2}>
-                Sobre o Animal
-            </Text>
-
-            <TextInput
-                style = {styles.inputStyle}
-                onChangeText = {setHistAnimal}
-                placeholder = 'Compartilhe a história do animal'
-                placeholderTextColor = '#bdbdbd'>
-            </TextInput>
-
-            <View style = {styles.touchableStyle3}>
-                    <TouchableOpacity 
-                        style = {styles.touchableStyle2}
-                        onPress = {ajudarPress}>
-                        <Text style = {styles.textStyle}> Procurar Ajuda </Text>
-                    </TouchableOpacity>
-            </View>
         </View>
     )
 }
