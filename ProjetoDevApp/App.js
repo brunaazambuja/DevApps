@@ -1,17 +1,13 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StatusBar, View } from 'react-native';
-import UserRegister from './src/components/UserRegister';
-import { Cadastro_Animais} from './src/components/AnimalRegister/cadastro_animais';
-import { TelaFinalCadastroAnimais } from './src/components/AnimalRegister/CadastroAnimaisFinalizado';
+import { NavigationContainer } from '@react-navigation/native';
+import Routes from './src/routes';
+
 const App = () => {
   return (
-    <View>
-      <TelaFinalCadastroAnimais>
-        
-      </TelaFinalCadastroAnimais>
-    </View>
+    <NavigationContainer>
+      <Routes />
+    </NavigationContainer>
   );
 };
-
 
 export default App;

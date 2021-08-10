@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import { StyleSheet, ScrollView, View, Text, TouchableOpacity} from 'react-native';
-import { Cadastro_Animais_Adocao, CadastroAnimaisAdocaoCore } from './CadastroAnimaisAdocao';
-import { Cadastro_Animais_Apadrinhar, CadastroAnimaisApadrinharCore } from './CadastroAnimaisApadrinhar';
-import { Cadastro_Animais_Ajuda, CadastroAnimaisAjudaCore } from './CadastroAnimaisAjuda';
+import { CadastroAnimaisAdocaoCore } from './CadastroAnimaisAdocao';
+import { CadastroAnimaisApadrinharCore } from './CadastroAnimaisApadrinhar';
+import { CadastroAnimaisAjudaCore } from './CadastroAnimaisAjuda';
 import { CoreComum_1, CoreComum_2 } from './CoreComumCadastroAnimais';
-import {TopBar} from './TopBar';
+import { TopBar } from './TopBar';
 
-export const Cadastro_Animais = () => {
+const Cadastro_Animais = () => {
     const [ajuda, setAjuda] = useState(false);
     const [adocao, setAdocao] = useState(false);
     const [apad, setApad] = useState(false);
@@ -122,3 +122,6 @@ const styles = StyleSheet.create({
         padding : 16
     }
 })
+
+
+export default Cadastro_Animais;

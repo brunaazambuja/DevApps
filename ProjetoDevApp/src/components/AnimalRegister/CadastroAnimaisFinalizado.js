@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, TextInput} from 'react-native';
 import { TopBar } from './TopBar';
 
-export const TelaFinalCadastroAnimais = () => {
+const TelaFinalCadastroAnimais = () => {
     const [tButton, setTButton] = useState(false);
 
     const tButtonPress = () => setTButton(!tButton);
@@ -74,3 +74,5 @@ const styles = StyleSheet.create({
         color : '#ffd358'
     }
 })
+
+export default TelaFinalCadastroAnimais;

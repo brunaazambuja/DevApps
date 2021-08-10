@@ -45,7 +45,7 @@ const UserLogin = () => {
         mode="contained"
         style={styles.facebookButton}
         contentStyle={styles.loginButtonContent}
-        icon={require('./assets/facebook.png')}
+        icon="facebook"
         onPress={() => {}}>
         Entrar com facebook
       </Button>
@@ -53,7 +53,7 @@ const UserLogin = () => {
         mode="contained"
         style={styles.googleButton}
         contentStyle={styles.loginButtonContent}
-        icon={require('./assets/google.png')}
+        icon="google"
         onPress={() => {}}>
         Entrar com google
       </Button>
