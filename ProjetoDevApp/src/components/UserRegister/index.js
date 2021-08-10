@@ -15,7 +15,7 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 const UserRegister = () => (
   <ScrollView>
-    <StatusBar backgroundColor="red" />
+    <StatusBar backgroundColor="#88c9bf" />
     <Container>
       <InfoContainer>
         <InfoText>

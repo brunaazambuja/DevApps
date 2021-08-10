@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, TextInput} from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, StatusBar} from 'react-native';
 import { TopBar } from './TopBar';
 
 const TelaFinalCadastroAnimais = () => {
@@ -9,6 +9,7 @@ const TelaFinalCadastroAnimais = () => {
 
     return(
         <View>
+            <StatusBar backgroundColor="#ffd358" />
             <TopBar title = 'Cadastro Do Animal'></TopBar>
 
             <Text style = {styles.ebaStyle}> Eba! </Text>

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, ScrollView, View, Text, TouchableOpacity} from 'react-native';
+import { StyleSheet, ScrollView, View, Text, TouchableOpacity, StatusBar} from 'react-native';
 import { CadastroAnimaisAdocaoCore } from './CadastroAnimaisAdocao';
 import { CadastroAnimaisApadrinharCore } from './CadastroAnimaisApadrinhar';
 import { CadastroAnimaisAjudaCore } from './CadastroAnimaisAjuda';
@@ -23,6 +23,7 @@ const Cadastro_Animais = () => {
 
     return(
         <ScrollView> 
+            <StatusBar backgroundColor="#ffd358" />
             <TopBar title = {'Cadastro de Animais'}>
             </TopBar>
             <Text style = {styles.text1}>
