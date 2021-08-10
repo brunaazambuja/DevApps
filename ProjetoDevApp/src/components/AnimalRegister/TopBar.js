@@ -1,11 +1,25 @@
-import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import React , {useState} from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 export const TopBar = (props) => {
+    const [tButton, setTButton] = useState(false);
+
+    const arrowPress = () => setTButton(!tButton);
+
     return(
         <View 
             style = {styles.topBarStyle}>
-            <Text>
+            <TouchableOpacity 
+                style = {styles.touchableStyle}
+                onPress = {arrowPress}>
+                <Icon
+                    style = {styles.arrowStyle}
+                    name = 'arrow-left'>
+
+                </Icon> 
+            </TouchableOpacity>
+            <Text style = {styles.textTopBarStyle}>
                 {props.title}
             </Text>
         </View>
@@ -23,6 +37,16 @@ const styles = StyleSheet.create({
 
     textTopBarStyle : {
         fontSize : 20,
-        color : '#434343'
+        color : '#434343',
+        paddingHorizontal : 20
+    },
+
+    touchableStyle : {
+        padding : 10
+    },
+
+    arrowStyle : {
+        fontSize : 24,
+        color : '#757575'
     }
 })
