@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity, TextInput} from 'react-native
 import { Radio_Buttons_3 } from './RadioButtons3';
 import { Radio_Buttons_2 } from './RadioButtons2';
 import { CheckBox2 , CheckBox3} from './CheckBoxGroups';
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 export const CoreComum_1 = () => {
     const [nomeAnimal, setNomeAnimal] = useState('');
@@ -24,6 +25,17 @@ export const CoreComum_1 = () => {
             <Text style = {styles.text2}>
                 Fotos do Animal
             </Text>
+
+            <View>
+                <TouchableOpacity
+                    style = {styles.touchableStyle}>
+                    <Icon
+                        name = 'plus-circle'
+                        style = {styles.plusStyle}>
+                    </Icon>
+                    <Text style = {styles.textPlusStyle}>Adicionar Foto</Text>
+                </TouchableOpacity>
+            </View>
 
             <Text style = {styles.text2}>
                 Espécie
@@ -145,6 +157,12 @@ const styles = StyleSheet.create({
         fontSize : 14,
         color : '#434343'
     },
+    touchableStyle : {
+        height : 128,
+        width : 312,
+        backgroundColor : '#f2f2f2',
+        alignItems : 'center'
+    },
     touchableStyle2 : {
         height : 30,
         backgroundColor : '#ffd358',
@@ -160,5 +178,12 @@ const styles = StyleSheet.create({
         alignSelf : 'center',
         fontSize : 12,
         color : '#434343'
+    },
+    textPlusStyle :{
+        fontSize : 14,
+        color : '#757575'
+    },
+    plusStyle : {
+        paddingTop : 55
     }
 })
