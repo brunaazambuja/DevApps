@@ -13,14 +13,16 @@ const Routes = () => {
   return (
     <App.Navigator
       screenOptions={{
-        headerShown: false,
-        cardStyle: { backgroundColor: '#312e38' },
+        headerShown: true,
+        headerStyle: {
+          backgroundColor:"#cfe9e5"
+        },
       }}>
-      <App.Screen name="Router" component={Router} />
-      <App.Screen name="Login" component={UserLogin} />
-      <App.Screen name="UserRegister" component={UserRegister} />
-      <App.Screen name="AnimalRegister" component={Cadastro_Animais} />
-      <App.Screen name="AnimalRegister2" component={TelaFinalCadastroAnimais} />
+      <App.Screen name="Home" component={Router} />
+      <App.Screen name="Login" options={{headerStyle:{backgroundColor:"#cfe9e5"}}} component={UserLogin} />
+      <App.Screen name="UserRegister" options={{headerStyle:{backgroundColor:"#cfe9e5"}}} component={UserRegister} />
+      <App.Screen name="AnimalRegister" options={{headerStyle:{backgroundColor:"#fee29b"}, title:"Cadastro de Animais"}} component={Cadastro_Animais} />
+      <App.Screen name="AnimalRegister2" options={{headerStyle:{backgroundColor:"#fee29b"}, title:"Cadastro de Animais"}} component={TelaFinalCadastroAnimais} />
     </App.Navigator>
   );
 };

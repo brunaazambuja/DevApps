@@ -10,7 +10,7 @@ const UserLogin = () => {
     <View>
       <StatusBar backgroundColor="#88c9bf" />
 
-      <Text style={styles.topBar}>Login</Text>
+      {/* <Text style={styles.topBar}>Login</Text> */}
 
       <View style={{ paddingTop: 64 }}>
         <TextInput
