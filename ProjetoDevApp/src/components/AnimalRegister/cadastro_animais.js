@@ -4,7 +4,6 @@ import { CadastroAnimaisAdocaoCore } from './CadastroAnimaisAdocao';
 import { CadastroAnimaisApadrinharCore } from './CadastroAnimaisApadrinhar';
 import { CadastroAnimaisAjudaCore } from './CadastroAnimaisAjuda';
 import { CoreComum_1, CoreComum_2 } from './CoreComumCadastroAnimais';
-import { TopBar } from './TopBar';
 
 const Cadastro_Animais = () => {
     const [ajuda, setAjuda] = useState(false);
@@ -22,62 +21,61 @@ const Cadastro_Animais = () => {
     }
 
     return(
-        <ScrollView> 
+        <ScrollView>
             <StatusBar backgroundColor="#ffd358" />
-            <TopBar title = {'Cadastro de Animais'}>
-            </TopBar>
+
             <Text style = {styles.text1}>
                 Tenho interesse em cadastrar o animal para:
             </Text>
             <View style = {styles.threeButtonsStyle}>
                 <View style = {styles.touchableStyle}>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         style = {styles.touchableStyle2}
                         onPress = {adocaoPress}>
                         <Text style = {styles.textStyle}> Adoção </Text>
                     </TouchableOpacity>
                 </View>
                 <View style = {styles.touchableStyle}>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         style = {styles.touchableStyle2}
                         onPress = {apadPress}>
                         <Text style = {styles.textStyle}> Apadrinhar</Text>
                     </TouchableOpacity>
                 </View>
                 <View style = {styles.touchableStyle}>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         style = {styles.touchableStyle2}
                         onPress = {ajudaPress}>
                         <Text style = {styles.textStyle}> Ajuda </Text>
                     </TouchableOpacity>
                 </View>
             </View>
-            {adocao ? 
+            {adocao ?
                 <View style = {styles.viewOptionStyle}>
                     <Text style = {styles.textTittleStyle}> Adoção </Text>
                     <CoreComum_1></CoreComum_1>
                     <CadastroAnimaisAdocaoCore></CadastroAnimaisAdocaoCore>
                     {ajuda ?    <View>
-                                    <Text style = {styles.textTittleStyle}> Ajuda </Text> 
+                                    <Text style = {styles.textTittleStyle}> Ajuda </Text>
                                     <CadastroAnimaisAjudaCore></CadastroAnimaisAjudaCore>
                                 </View>  : null}
                     <CoreComum_2 name = 'Colocar Para Adoção'></CoreComum_2>
                 </View> : null}
-            {apad ? 
+            {apad ?
                 <View style = {styles.viewOptionStyle}>
                     <Text style = {styles.textTittleStyle}> Apadrinhar </Text>
                     <CoreComum_1></CoreComum_1>
                     <CadastroAnimaisApadrinharCore></CadastroAnimaisApadrinharCore>
                     {ajuda ?    <View>
-                                    <Text style = {styles.textTittleStyle}> Ajuda </Text> 
+                                    <Text style = {styles.textTittleStyle}> Ajuda </Text>
                                     <CadastroAnimaisAjudaCore></CadastroAnimaisAjudaCore>
                                 </View>  : null}
                     <CoreComum_2 name = 'Procurar Padrinho'></CoreComum_2>
                 </View> : null}
-            {(ajuda && (!apad && !adocao)) ? 
+            {(ajuda && (!apad && !adocao)) ?
                 <View style = {styles.viewOptionStyle}>
                     <Text style = {styles.textTittleStyle}> Ajuda </Text>
-                    <CoreComum_1></CoreComum_1> 
+                    <CoreComum_1></CoreComum_1>
                     <CadastroAnimaisAjudaCore></CadastroAnimaisAjudaCore>
                     <CoreComum_2 name = 'Procurar Ajuda'></CoreComum_2>
                 </View> : null}
@@ -98,7 +96,7 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
         justifyContent : 'space-between',
         paddingLeft : 10,
-        paddingRight : 10 
+        paddingRight : 10
     },
 
     touchableStyle : {

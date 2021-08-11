@@ -10,18 +10,6 @@ export const styles = StyleSheet.create({
     marginVertical: 3,
     color: '#575756',
   },
-  topBar: {
-    backgroundColor: '#cfe9e5',
-    height: 72,
-    textAlignVertical: 'center',
-    color: '#434343',
-    fontSize: 20,
-    paddingLeft: 50,
-    fontWeight: 'bold',
-    borderBottomWidth: 2,
-    borderBottomColor: '#bdbdbd',
-    elevation: 5,
-  },
   loginButton: {
     backgroundColor: '#88c9bf',
     alignSelf: 'center',
