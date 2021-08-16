@@ -1,0 +1,15 @@
+import auth from '@react-native-firebase/auth';
+
+export default class FirebaseUtil {
+    static signIn = (email, password) => {
+      console.log(email,password);
+      return auth().signInWithEmailAndPassword(email, password);
+    };
+    static signUp = (email, password) => {
+      return auth().createUserWithEmailAndPassword(email, password);
+    };
+    static signOut = () => {
+      return auth().signOut();
+    };
+  }
+  

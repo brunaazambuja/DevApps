@@ -2,10 +2,19 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StatusBar } from 'react-native';
 import { Button } from 'react-native-paper';
 import { styles } from './styles';
+import FirebaseUtil from '../../utils/FirebaseUtil';
 
 const UserLogin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const signIn = () => {
+    FirebaseUtil.signIn(username, password).catch(e => {
+      console.log(e);
+      alert('Email e/ou senha inválidos');
+    })
+  } // TODO: Mudar username para email
+
   return (
     <View>
       <StatusBar backgroundColor="#88c9bf" />
@@ -35,7 +44,7 @@ const UserLogin = () => {
         style={styles.loginButton}
         labelStyle={styles.loginButtonText}
         contentStyle={styles.loginButtonContent}
-        onPress={() => {}}>
+        onPress={() => signIn()}>
         ENTRAR
       </Button>
       <View style={{ height: 58 }} />
