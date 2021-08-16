@@ -12,8 +12,8 @@ const UserLogin = () => {
     FirebaseUtil.signIn(username, password).catch(e => {
       console.log(e);
       alert('Email e/ou senha inválidos');
-    })
-  } // TODO: Mudar username para email
+    });
+  }; // TODO: Mudar username para email
 
   return (
     <View>
