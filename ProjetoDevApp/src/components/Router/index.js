@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StatusBar } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from './styles';
+import { LoginContext } from '../../utils/LoginProvider';
+import FirebaseUtil from '../../utils/FirebaseUtil';
 
 const Router = () => {
   const navigation = useNavigation();
+  const user = useContext(LoginContext);
+
+  const signOut = () => {
+    FirebaseUtil.signOut().catch(e => {
+      console.log(e);
+      alert('Algo deu errado');
+    });
+  };
+
   return (
     <View>
       <StatusBar backgroundColor="#88c9bf" />
@@ -14,8 +25,8 @@ const Router = () => {
         style={styles.loginButton}
         labelStyle={styles.loginButtonText}
         contentStyle={styles.loginButtonContent}
-        onPress={() => navigation.navigate('Login')}>
-        Login
+        onPress={() => signOut()}>
+        Logout
       </Button>
       <Button
         mode="contained"
