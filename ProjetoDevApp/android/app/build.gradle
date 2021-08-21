@@ -206,6 +206,7 @@ dependencies {
 
     implementation platform('com.google.firebase:firebase-bom:28.3.1')
     implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-firestore'
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
