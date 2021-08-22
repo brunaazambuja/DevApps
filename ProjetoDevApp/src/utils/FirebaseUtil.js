@@ -32,4 +32,25 @@ export default class FirebaseUtil {
       phone,
     });
   };
+  static createAnimal = (
+    name_animal,
+    species_animal,
+    sex_animal,
+    size_animal,
+    age_animal,
+    temperament_animal,
+    health_animal,
+    health_description
+  ) => {
+    return firestore().collection('Animals').add({
+      name_animal,
+      species_animal,
+      sex_animal,
+      size_animal,
+      age_animal,
+      temperament_animal,
+      health_animal,
+      health_description
+    });
+  };
 }

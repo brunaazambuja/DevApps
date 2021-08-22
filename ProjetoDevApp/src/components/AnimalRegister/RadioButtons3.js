@@ -11,18 +11,21 @@ export const Radio_Buttons_3 = (props) => {
         setB2(false);
         setB3(false);
         setB1(!b1);
+        props.setNames(props.enum1);
     }
 
     const pressB2 = () => {
         setB1(false);
         setB3(false);
         setB2(!b2);
+        props.setNames(props.enum2);
     }
 
     const pressB3 = () => {
         setB1(false);
         setB2(false);
         setB3(!b3);
+        props.setNames(props.enum3);
     }
 
     return(

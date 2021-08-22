@@ -5,9 +5,7 @@ import { Radio_Buttons_2 } from './RadioButtons2';
 import { CheckBox2 , CheckBox3} from './CheckBoxGroups';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
-export const CoreComum_1 = () => {
-    const [nomeAnimal, setNomeAnimal] = useState('');
-    const [doencaAnimal, setDoencaAnimal] = useState('');
+export const CoreComum_1 = (props) => {
 
     return(
         <View>
@@ -17,7 +15,7 @@ export const CoreComum_1 = () => {
 
             <TextInput
                 style = {styles.inputStyle}
-                onChangeText = {setNomeAnimal}
+                onChangeText = {props.setNomes}
                 placeholder = 'Nome do Animal'
                 placeholderTextColor = '#bdbdbd'>
             </TextInput>
@@ -43,7 +41,10 @@ export const CoreComum_1 = () => {
 
             <Radio_Buttons_2
                 name1 = 'Cachorro'
-                name2 = 'Gato'>
+                name2 = 'Gato'
+                setNames = {props.setRaca}
+                enum1 = {RadioButtonsEnuns.species.cachorro}
+                enum2 = {RadioButtonsEnuns.species.gato}>
             </Radio_Buttons_2>
 
             <Text style = {styles.text2}>
@@ -52,7 +53,10 @@ export const CoreComum_1 = () => {
 
             <Radio_Buttons_2
                 name1 = 'Macho'
-                name2 = 'Fêmea'>
+                name2 = 'Fêmea'
+                setNames = {props.setSexo}
+                enum1 = {RadioButtonsEnuns.sex.macho}
+                enum2 = {RadioButtonsEnuns.sex.femea}>
             </Radio_Buttons_2>
 
             <Text style = {styles.text2}>
@@ -62,7 +66,11 @@ export const CoreComum_1 = () => {
             <Radio_Buttons_3
                 name1 = 'Pequeno'
                 name2 = 'Médio'
-                name3 = 'Grande'>
+                name3 = 'Grande'
+                setNames = {props.setPorte}
+                enum1 = {RadioButtonsEnuns.size.pequeno}
+                enum2 = {RadioButtonsEnuns.size.medio}
+                enum3 = {RadioButtonsEnuns.size.grande}>
             </Radio_Buttons_3>
 
             <Text style = {styles.text2}>
@@ -72,7 +80,11 @@ export const CoreComum_1 = () => {
             <Radio_Buttons_3
                 name1 = 'Filhote'
                 name2 = 'Adulto'
-                name3 = 'Idoso'>
+                name3 = 'Idoso'
+                setNames = {props.setIdade}
+                enum1 = {RadioButtonsEnuns.age.filhote}
+                enum2 = {RadioButtonsEnuns.age.adulto}
+                enum3 = {RadioButtonsEnuns.age.idoso}>
             </Radio_Buttons_3>
 
             <Text style = {styles.text2}>
@@ -82,13 +94,19 @@ export const CoreComum_1 = () => {
             <CheckBox3
                 name1 = 'Brincalhão'
                 name2 = 'Tímido'
-                name3 = 'Calmo'>
+                name3 = 'Calmo'
+                setname1 = {props.setTemp1}
+                setname2 = {props.setTemp2}
+                setname3 = {props.setTemp3}>
             </CheckBox3>
 
             <CheckBox3
                 name1 = 'Guarda'
                 name2 = 'Amoroso'
-                name3 = 'Preguiçoso'>
+                name3 = 'Preguiçoso'
+                setname1 = {props.setTemp4}
+                setname2 = {props.setTemp5}
+                setname3 = {props.setTemp6}>
             </CheckBox3>
 
             <Text style = {styles.text2}>
@@ -97,17 +115,21 @@ export const CoreComum_1 = () => {
 
             <CheckBox2
                 name1 = 'Vacinado'
-                name2 = 'Vermifugado'>
+                name2 = 'Vermifugado'
+                setname1 = {props.setSaude1}
+                setname2 = {props.setSaude2}>
             </CheckBox2>
 
             <CheckBox2
                 name1 = 'Castrado'
-                name2 = 'Doente'>
+                name2 = 'Doente'
+                setname1 = {props.setSaude3}
+                setname2 = {props.setSaude4}>
             </CheckBox2>
 
             <TextInput
                 style = {styles.inputStyle}
-                onChangeText = {setDoencaAnimal}
+                onChangeText = {props.setDoenca}
                 placeholder = 'Doenças do animal'
                 placeholderTextColor = '#bdbdbd'>
             </TextInput>
@@ -120,7 +142,10 @@ export const CoreComum_2 = (props) => {
 
     const [tButton, setTButton] = useState(false);
 
-    const tButtonPress = () => setTButton(!tButton);
+    const tButtonPress = () => {
+        setTButton(!tButton);
+        props.createAnimal();
+    }
 
     return(
         <View>
@@ -144,6 +169,30 @@ export const CoreComum_2 = (props) => {
             </View>
         </View>
     )
+}
+
+const RadioButtonsEnuns = {
+    species : {
+        cachorro : 'cachorro',
+        gato : 'gato'
+    },
+
+    sex : {
+        macho : 'macho',
+        femea : 'femea'
+    },
+
+    size : {
+        pequeno : 'pequeno',
+        medio : 'medio',
+        grande : 'grande'
+    },
+
+    age : {
+        filhote : 'filhote',
+        adulto : 'adulto',
+        idoso : 'idoso'
+    }
 }
 
 const styles = StyleSheet.create({
