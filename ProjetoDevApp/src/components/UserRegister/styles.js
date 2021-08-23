@@ -31,7 +31,6 @@ export const Input = styled.TextInput`
   border-bottom-width: 1px;
 `;
 
-
 export const ButtonFile = styled.TouchableOpacity`
   height: 128px;
   width: 128px;

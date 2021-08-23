@@ -26,8 +26,15 @@ export const CheckBox2 = (props) => {
     const [b1, setB1] = useState(false);
     const [b2, setB2] = useState(false);
 
-    const checkB1 = () => setB1(!b1);
-    const checkB2 = () => setB2(!b2);
+    const checkB1 = () => {
+        props.setname1(!b1);
+        setB1(!b1);
+    }
+
+    const checkB2 = () => {
+        props.setname2(!b2);
+        setB2(!b2);
+    }
 
 
     return(
@@ -60,10 +67,20 @@ export const CheckBox3 = (props) => {
     const [b2, setB2] = useState(false);
     const [b3, setB3] = useState(false);
 
-    const checkB1 = () => setB1(!b1);
-    const checkB2 = () => setB2(!b2);
-    const checkB3 = () => setB3(!b3);
+    const checkB1 = () => {
+        props.setname1(!b1);
+        setB1(!b1);
+    }
 
+    const checkB2 = () => {
+        props.setname2(!b2);
+        setB2(!b2);
+    }
+
+    const checkB3 = () => {
+        props.setname3(!b3);
+        setB3(!b3);
+    }
 
     return(
         <View style = {styles.checkBoxStyle}>

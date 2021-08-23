@@ -1,15 +1,14 @@
 import React, {useState} from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, TextInput} from 'react-native';
-import { TopBar } from './TopBar';
+import { StyleSheet, View, Text, TouchableOpacity, StatusBar} from 'react-native';
 
-export const TelaFinalCadastroAnimais = () => {
+const TelaFinalCadastroAnimais = () => {
     const [tButton, setTButton] = useState(false);
 
     const tButtonPress = () => setTButton(!tButton);
 
     return(
         <View>
-            <TopBar title = 'Cadastro Do Animal'></TopBar>
+            <StatusBar backgroundColor="#ffd358" />
 
             <Text style = {styles.ebaStyle}> Eba! </Text>
 
@@ -20,12 +19,12 @@ export const TelaFinalCadastroAnimais = () => {
 
             <Text
                 style = {styles.textStyle}>
-                Certifique-se que permitiu o envio de notificações por push no campo privacidade do menu configurações do aplicativo. Assim, 
+                Certifique-se que permitiu o envio de notificações por push no campo privacidade do menu configurações do aplicativo. Assim,
                 podemos te avisar assim que  alguém interessado entrar em contato!
             </Text>
 
             <View style = {styles.touchableStyle}>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         style = {styles.touchableStyle2}
                         onPress = {tButtonPress}>
                         <Text style = {styles.textStyle2}> Meus Pets </Text>
@@ -74,3 +73,5 @@ const styles = StyleSheet.create({
         color : '#ffd358'
     }
 })
+
+export default TelaFinalCadastroAnimais;

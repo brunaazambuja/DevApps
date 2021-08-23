@@ -2,15 +2,22 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StatusBar } from 'react-native';
 import { Button } from 'react-native-paper';
 import { styles } from './styles';
+import FirebaseUtil from '../../utils/FirebaseUtil';
 
 const UserLogin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const signIn = () => {
+    FirebaseUtil.signIn(username, password).catch(e => {
+      console.log(e);
+      alert('Email e/ou senha inválidos');
+    });
+  }; // TODO: Mudar username para email
+
   return (
     <View>
       <StatusBar backgroundColor="#88c9bf" />
-
-      <Text style={styles.topBar}>Login</Text>
 
       <View style={{ paddingTop: 64 }}>
         <TextInput
@@ -37,7 +44,7 @@ const UserLogin = () => {
         style={styles.loginButton}
         labelStyle={styles.loginButtonText}
         contentStyle={styles.loginButtonContent}
-        onPress={() => {}}>
+        onPress={() => signIn()}>
         ENTRAR
       </Button>
       <View style={{ height: 58 }} />
@@ -45,7 +52,7 @@ const UserLogin = () => {
         mode="contained"
         style={styles.facebookButton}
         contentStyle={styles.loginButtonContent}
-        icon={require('./assets/facebook.png')}
+        icon="facebook"
         onPress={() => {}}>
         Entrar com facebook
       </Button>
@@ -53,7 +60,7 @@ const UserLogin = () => {
         mode="contained"
         style={styles.googleButton}
         contentStyle={styles.loginButtonContent}
-        icon={require('./assets/google.png')}
+        icon="google"
         onPress={() => {}}>
         Entrar com google
       </Button>

@@ -1,17 +1,13 @@
-import React from 'react';
-import { SafeAreaView, ScrollView, StatusBar, View } from 'react-native';
-import UserRegister from './src/components/UserRegister';
-import { Cadastro_Animais} from './src/components/AnimalRegister/cadastro_animais';
-import { TelaFinalCadastroAnimais } from './src/components/AnimalRegister/CadastroAnimaisFinalizado';
+import React, { useState, useEffect } from 'react';
+import Routes from './src/routes';
+import LoginProvider from './src/utils/LoginProvider';
+
 const App = () => {
   return (
-    <View>
-      <TelaFinalCadastroAnimais>
-        
-      </TelaFinalCadastroAnimais>
-    </View>
+    <LoginProvider>
+      <Routes />
+    </LoginProvider>
   );
 };
-
 
 export default App;
