@@ -4,6 +4,7 @@ import { Radio_Buttons_3 } from './RadioButtons3';
 import { Radio_Buttons_2 } from './RadioButtons2';
 import { CheckBox2 , CheckBox3} from './CheckBoxGroups';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import { useNavigation } from '@react-navigation/native';
 
 export const CoreComum_1 = (props) => {
 
@@ -141,10 +142,13 @@ export const CoreComum_2 = (props) => {
     const [histAnimal, setHistAnimal] = useState('');
 
     const [tButton, setTButton] = useState(false);
+    const navigation = useNavigation();
 
     const tButtonPress = () => {
         setTButton(!tButton);
         props.createAnimal();
+        navigation.navigate('AnimalRegister2');
+        
     }
 
     return(

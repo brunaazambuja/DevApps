@@ -12,7 +12,9 @@ const Cadastro_Animais = () => {
     const [apad, setApad] = useState(false);
 
     const ajudaPress = () => {
-        setAjuda(!ajuda);
+        setAjuda(true);
+        setApad(false);
+        setAdocao(false);
         setTempAnimal1(false);
         setTempAnimal2(false);
         setTempAnimal3(false);
@@ -25,8 +27,9 @@ const Cadastro_Animais = () => {
         setSaudeAnimal4(false);
     }
     const adocaoPress = () => {
+        setAdocao(true);
         setApad(false);
-        setAdocao(!adocao);
+        setAjuda(false);
         setTempAnimal1(false);
         setTempAnimal2(false);
         setTempAnimal3(false);
@@ -39,8 +42,9 @@ const Cadastro_Animais = () => {
         setSaudeAnimal4(false);
     }
     const apadPress = () => {
+        setApad(true);
         setAdocao(false);
-        setApad(!apad);
+        setAjuda(false);
         setTempAnimal1(false);
         setTempAnimal2(false);
         setTempAnimal3(false);
@@ -93,7 +97,7 @@ const Cadastro_Animais = () => {
     }
 
     const saudeAnimal = (saudeA1, saudeA2, saudeA3, saudeA4) => {
-        var array = [], saude = ['Vacinado', 'Vermifugado', 'Castrado', 'Doente'];
+        var array = [];
 
         if(saudeA1)
             array.push('Vacinado');
