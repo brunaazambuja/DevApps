@@ -1,13 +1,19 @@
 import React, {useState} from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, StatusBar} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import PressableButton from '../PressableButton/PressableButton';
 
 const TelaFinalCadastroAnimais = () => {
     const [tButton, setTButton] = useState(false);
+    const navigation = useNavigation();
 
-    const tButtonPress = () => setTButton(!tButton);
+    const tButtonPress = () => {
+        setTButton(!tButton);
+        navigation.navigate('Home');
+    };
 
     return(
-        <View>
+        <View style={{flex:1, alignItems:'center'}}>
             <StatusBar backgroundColor="#ffd358" />
 
             <Text style = {styles.ebaStyle}> Eba! </Text>
@@ -24,11 +30,11 @@ const TelaFinalCadastroAnimais = () => {
             </Text>
 
             <View style = {styles.touchableStyle}>
-                    <TouchableOpacity
+                    <PressableButton 
                         style = {styles.touchableStyle2}
                         onPress = {tButtonPress}>
                         <Text style = {styles.textStyle2}> Meus Pets </Text>
-                    </TouchableOpacity>
+                    </PressableButton>
             </View>
 
         </View>
@@ -48,21 +54,22 @@ const styles = StyleSheet.create({
     touchableStyle : {
         width : 180,
         paddingVertical : 10,
-        alignSelf : 'center',
-        position : 'absolute',
-        bottom : 0,
-        top : 600
+        flex: 1,
+        justifyContent: 'flex-end',
+        marginBottom: 36,
     },
 
     touchableStyle2 : {
-        height : 30,
-        backgroundColor : '#ffd358'
+        height: 54,
+        backgroundColor : '#ffd358',
+        width: 280,
+        elevation: 5,
     },
 
     textStyle2 : {
         paddingTop : 5,
         alignSelf : 'center',
-        fontSize : 12,
+        fontSize : 16,
         color : '#434343'
     },
 
