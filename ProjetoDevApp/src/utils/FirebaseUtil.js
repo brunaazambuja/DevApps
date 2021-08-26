@@ -11,6 +11,9 @@ export default class FirebaseUtil {
   static signOut = () => {
     return auth().signOut();
   };
+  static getLoggedUser = () => {
+    return auth().currentUser;
+  };
   static createUser = (
     full_name,
     user_name,
@@ -40,7 +43,8 @@ export default class FirebaseUtil {
     age_animal,
     temperament_animal,
     health_animal,
-    health_description
+    health_description,
+    owner_id
   ) => {
     return firestore().collection('Animals').add({
       name_animal,
@@ -50,7 +54,8 @@ export default class FirebaseUtil {
       age_animal,
       temperament_animal,
       health_animal,
-      health_description
-    });
+      health_description,
+      owner_id
+  });
   };
 }

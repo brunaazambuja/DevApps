@@ -112,6 +112,7 @@ const Cadastro_Animais = () => {
     }
 
     const createAnimal = async () => {
+      const owner_id = FirebaseUtil.getLoggedUser().uid;
         await FirebaseUtil.createAnimal(
             nomeAnimal,
             racaAnimal,
@@ -120,7 +121,8 @@ const Cadastro_Animais = () => {
             idadeAnimal,
             tempAnimal(tempAnimal1, tempAnimal2, tempAnimal3, tempAnimal4, tempAnimal5, tempAnimal6),
             saudeAnimal(saudeAnimal1, saudeAnimal2, saudeAnimal3, saudeAnimal4),
-            doencaAnimal
+            doencaAnimal,
+            owner_id
         );
     }
 
@@ -180,7 +182,7 @@ const Cadastro_Animais = () => {
                                     <Text style = {styles.textTittleStyle}> Ajuda </Text>
                                     <CadastroAnimaisAjudaCore></CadastroAnimaisAjudaCore>
                                 </View>  : null}
-                    <CoreComum_2 
+                    <CoreComum_2
                         name = 'Colocar Para Adoção'
                         createAnimal = {createAnimal}></CoreComum_2>
                 </View> : null}
@@ -210,7 +212,7 @@ const Cadastro_Animais = () => {
                                     <Text style = {styles.textTittleStyle}> Ajuda </Text>
                                     <CadastroAnimaisAjudaCore></CadastroAnimaisAjudaCore>
                                 </View>  : null}
-                    <CoreComum_2 
+                    <CoreComum_2
                         name = 'Procurar Padrinho'
                         createAnimal = {createAnimal}></CoreComum_2>
                 </View> : null}
@@ -236,7 +238,7 @@ const Cadastro_Animais = () => {
                         setSaude4 = {setSaudeAnimal4}>
                     </CoreComum_1>
                     <CadastroAnimaisAjudaCore></CadastroAnimaisAjudaCore>
-                    <CoreComum_2 
+                    <CoreComum_2
                         name = 'Procurar Ajuda'
                         createAnimal = {createAnimal}></CoreComum_2>
                 </View> : null}
