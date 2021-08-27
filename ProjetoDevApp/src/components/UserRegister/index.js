@@ -6,13 +6,13 @@ import {
   TitleText,
   InputsContainer,
   Input,
-  ButtonText,
-  ButtonView,
 } from './styles';
 import Button from '../Button';
-import { ScrollView, Text, TouchableOpacity, StatusBar } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, StatusBar, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import FirebaseUtil from '../../utils/FirebaseUtil';
+import storage from '@react-native-firebase/storage';
+import { launchImageLibrary } from '../../utils/ImageUtil';
 
 const UserRegister = () => {
   const [password, setPassword] = useState('');
@@ -25,6 +25,8 @@ const UserRegister = () => {
   const [state, setState] = useState('');
   const [age, setAge] = useState(0);
   const [phone, setPhone] = useState('');
+
+  const [image, setImage] = useState(null);
 
   const signUp = async () => {
     if (password === password_confirmation) {
@@ -40,6 +42,13 @@ const UserRegister = () => {
           age,
           phone,
         );
+
+        const {uri} = image;
+        const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+        const filename = uri.substring(uri.lastIndexOf('/') + 1);
+        await storage()
+          .ref('users/'+filename)
+          .putFile(uploadUri);
       } catch (e) {
         console.log(e.message);
         switch (e.code) {
@@ -57,6 +66,8 @@ const UserRegister = () => {
       alert('Confirmação de senha diferente de senha');
     }
   };
+
+
 
   return (
     <ScrollView>
@@ -131,6 +142,7 @@ const UserRegister = () => {
 
           <TitleText>FOTO DE PERFIL</TitleText>
           <TouchableOpacity
+            onPress={() => launchImageLibrary(setImage)}
             style={{
               alignSelf: 'center',
               backgroundColor: '#e6e7e7',
@@ -142,16 +154,28 @@ const UserRegister = () => {
               height: 180,
               elevation: 5,
             }}>
-            <Icon
-              name="plus-circle"
-              style={{
-                color: '#757575',
-                fontSize: 25,
-              }}
-            />
-            <Text style={{ fontSize: 16, color: '#757575' }}>
-              adicionar foto
-            </Text>
+              {image ? (
+              <View style={{ alignItems: 'center' }}>
+                <Image
+                  source={{uri: image.uri}}
+                  style={{ resizeMode: 'contain' }}
+                />
+              </View>
+              ) : (
+                <>
+                <Icon
+                name="plus-circle"
+                style={{
+                  color: '#757575',
+                  fontSize: 25,
+                }}
+                />
+                <Text style={{ fontSize: 16, color: '#757575' }}>
+                adicionar foto
+                </Text>
+                </>
+              )}
+
           </TouchableOpacity>
           <Button onPress={() => signUp()}>FAZER CADASTRO</Button>
         </InputsContainer>

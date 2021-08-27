@@ -1,12 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, TextInput} from 'react-native';
 import { Radio_Buttons_3 } from './RadioButtons3';
 import { Radio_Buttons_2 } from './RadioButtons2';
 import { CheckBox2 , CheckBox3} from './CheckBoxGroups';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import { launchImageLibrary } from '../../utils/ImageUtil';
+import { CadastroAnimalContext } from './cadastro_animais';
 
 export const CoreComum_1 = (props) => {
+  const setImage = useContext(CadastroAnimalContext);
 
     return(
         <View>
@@ -27,6 +30,7 @@ export const CoreComum_1 = (props) => {
 
             <View>
                 <TouchableOpacity
+                onPress={() => launchImageLibrary(setImage)}
                     style = {styles.touchableStyle}>
                     <Icon
                         name = 'plus-circle'
@@ -148,7 +152,7 @@ export const CoreComum_2 = (props) => {
         setTButton(!tButton);
         props.createAnimal();
         navigation.navigate('AnimalRegister2');
-        
+
     }
 
     return(
@@ -165,7 +169,7 @@ export const CoreComum_2 = (props) => {
             </TextInput>
 
             <View style = {styles.touchableStyle3}>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         style = {styles.touchableStyle2}
                         onPress = {tButtonPress}>
                         <Text style = {styles.textStyle}> {props.name} </Text>

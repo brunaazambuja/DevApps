@@ -24,7 +24,7 @@ export default class FirebaseUtil {
     age,
     phone,
   ) => {
-    return firestore().collection('Users').add({
+    return firestore().collection('Users').doc(auth().currentUser.uid).set({
       full_name,
       user_name,
       email,

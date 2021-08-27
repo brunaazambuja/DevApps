@@ -5,11 +5,15 @@ import { CadastroAnimaisApadrinharCore } from './CadastroAnimaisApadrinhar';
 import { CadastroAnimaisAjudaCore } from './CadastroAnimaisAjuda';
 import { CoreComum_1, CoreComum_2 } from './CoreComumCadastroAnimais';
 import FirebaseUtil from '../../utils/FirebaseUtil';
+import storage from '@react-native-firebase/storage';
+
+export const CadastroAnimalContext = React.createContext({});
 
 const Cadastro_Animais = () => {
     const [ajuda, setAjuda] = useState(false);
     const [adocao, setAdocao] = useState(false);
     const [apad, setApad] = useState(false);
+    const [image, setImage] = useState(null);
 
     const ajudaPress = () => {
         setAjuda(true);
@@ -112,18 +116,28 @@ const Cadastro_Animais = () => {
     }
 
     const createAnimal = async () => {
-      const owner_id = FirebaseUtil.getLoggedUser().uid;
+      try {
+        const owner_id = FirebaseUtil.getLoggedUser().uid;
         await FirebaseUtil.createAnimal(
-            nomeAnimal,
-            racaAnimal,
-            sexoAnimal,
-            porteAnimal,
-            idadeAnimal,
-            tempAnimal(tempAnimal1, tempAnimal2, tempAnimal3, tempAnimal4, tempAnimal5, tempAnimal6),
-            saudeAnimal(saudeAnimal1, saudeAnimal2, saudeAnimal3, saudeAnimal4),
-            doencaAnimal,
-            owner_id
-        );
+          nomeAnimal,
+          racaAnimal,
+          sexoAnimal,
+          porteAnimal,
+          idadeAnimal,
+          tempAnimal(tempAnimal1, tempAnimal2, tempAnimal3, tempAnimal4, tempAnimal5, tempAnimal6),
+          saudeAnimal(saudeAnimal1, saudeAnimal2, saudeAnimal3, saudeAnimal4),
+          doencaAnimal,
+          owner_id
+          );
+          const {uri} = image;
+          const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+          const filename = uri.substring(uri.lastIndexOf('/') + 1);
+          await storage()
+            .ref('animals/'+filename)
+            .putFile(uploadUri);
+        } catch (e) {
+          alert("Ocorreu um erro ao cadastrar animal.")
+        }
     }
 
     return(
@@ -159,24 +173,26 @@ const Cadastro_Animais = () => {
             {adocao ?
                 <View style = {styles.viewOptionStyle}>
                     <Text style = {styles.textTittleStyle}> Adoção </Text>
-                    <CoreComum_1
-                        setNomes = {setNomeAnimal}
-                        setDoenca = {setDoencaAnimal}
-                        setRaca = {setRacaAnimal}
-                        setSexo = {setSexoAnimal}
-                        setPorte = {setPorteAnimal}
-                        setIdade = {setIdadeAnimal}
-                        setTemp1 = {setTempAnimal1}
-                        setTemp2 = {setTempAnimal2}
-                        setTemp3 = {setTempAnimal3}
-                        setTemp4 = {setTempAnimal4}
-                        setTemp5 = {setTempAnimal5}
-                        setTemp6 = {setTempAnimal6}
-                        setSaude1 = {setSaudeAnimal1}
-                        setSaude2 = {setSaudeAnimal2}
-                        setSaude3 = {setSaudeAnimal3}
-                        setSaude4 = {setSaudeAnimal4}>
-                    </CoreComum_1>
+                    <CadastroAnimalContext.Provider value={setImage}>
+                        <CoreComum_1
+                          setNomes = {setNomeAnimal}
+                          setDoenca = {setDoencaAnimal}
+                          setRaca = {setRacaAnimal}
+                          setSexo = {setSexoAnimal}
+                          setPorte = {setPorteAnimal}
+                          setIdade = {setIdadeAnimal}
+                          setTemp1 = {setTempAnimal1}
+                          setTemp2 = {setTempAnimal2}
+                          setTemp3 = {setTempAnimal3}
+                          setTemp4 = {setTempAnimal4}
+                          setTemp5 = {setTempAnimal5}
+                          setTemp6 = {setTempAnimal6}
+                          setSaude1 = {setSaudeAnimal1}
+                          setSaude2 = {setSaudeAnimal2}
+                          setSaude3 = {setSaudeAnimal3}
+                          setSaude4 = {setSaudeAnimal4}>
+                      </CoreComum_1>
+                    </CadastroAnimalContext.Provider>
                     <CadastroAnimaisAdocaoCore></CadastroAnimaisAdocaoCore>
                     {ajuda ?    <View>
                                     <Text style = {styles.textTittleStyle}> Ajuda </Text>
