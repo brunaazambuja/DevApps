@@ -7,8 +7,6 @@ import { CoreComum_1, CoreComum_2 } from './CoreComumCadastroAnimais';
 import FirebaseUtil from '../../utils/FirebaseUtil';
 import storage from '@react-native-firebase/storage';
 
-export const CadastroAnimalContext = React.createContext({});
-
 const Cadastro_Animais = () => {
     const [ajuda, setAjuda] = useState(false);
     const [adocao, setAdocao] = useState(false);
@@ -173,8 +171,10 @@ const Cadastro_Animais = () => {
             {adocao ?
                 <View style = {styles.viewOptionStyle}>
                     <Text style = {styles.textTittleStyle}> Adoção </Text>
-                    <CadastroAnimalContext.Provider value={setImage}>
+
                         <CoreComum_1
+                          image = {image}
+                          setImage = {setImage}
                           setNomes = {setNomeAnimal}
                           setDoenca = {setDoencaAnimal}
                           setRaca = {setRacaAnimal}
@@ -191,8 +191,8 @@ const Cadastro_Animais = () => {
                           setSaude2 = {setSaudeAnimal2}
                           setSaude3 = {setSaudeAnimal3}
                           setSaude4 = {setSaudeAnimal4}>
-                      </CoreComum_1>
-                    </CadastroAnimalContext.Provider>
+                        </CoreComum_1>
+
                     <CadastroAnimaisAdocaoCore></CadastroAnimaisAdocaoCore>
                     {ajuda ?    <View>
                                     <Text style = {styles.textTittleStyle}> Ajuda </Text>

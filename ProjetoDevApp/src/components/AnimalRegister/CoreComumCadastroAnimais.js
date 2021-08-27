@@ -1,15 +1,14 @@
-import React, {useState, useContext} from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, TextInput} from 'react-native';
+import React, {useState} from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Image} from 'react-native';
 import { Radio_Buttons_3 } from './RadioButtons3';
 import { Radio_Buttons_2 } from './RadioButtons2';
 import { CheckBox2 , CheckBox3} from './CheckBoxGroups';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import { launchImageLibrary } from '../../utils/ImageUtil';
-import { CadastroAnimalContext } from './cadastro_animais';
 
 export const CoreComum_1 = (props) => {
-  const setImage = useContext(CadastroAnimalContext);
+    const {image, setImage} = props;
 
     return(
         <View>
