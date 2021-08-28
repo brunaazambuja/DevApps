@@ -23,6 +23,7 @@ export default class FirebaseUtil {
     state,
     age,
     phone,
+    user_image_url,
   ) => {
     return firestore().collection('Users').doc(auth().currentUser.uid).set({
       full_name,
@@ -33,6 +34,7 @@ export default class FirebaseUtil {
       state,
       age,
       phone,
+      user_image_url,
     });
   };
   static createAnimal = (
@@ -44,7 +46,8 @@ export default class FirebaseUtil {
     temperament_animal,
     health_animal,
     health_description,
-    owner_id
+    owner_id,
+    animal_image_url,
   ) => {
     return firestore().collection('Animals').add({
       name_animal,
@@ -55,7 +58,8 @@ export default class FirebaseUtil {
       temperament_animal,
       health_animal,
       health_description,
-      owner_id
+      owner_id,
+      animal_image_url,
   });
   };
 }

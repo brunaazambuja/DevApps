@@ -8,7 +8,15 @@ import {
   Input,
 } from './styles';
 import Button from '../Button';
-import { ScrollView, View, Text, TouchableOpacity, StatusBar, Image } from 'react-native';
+import {
+  ScrollView,
+  View,
+  Text,
+  TouchableOpacity,
+  StatusBar,
+  Image,
+  Platform,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import FirebaseUtil from '../../utils/FirebaseUtil';
 import storage from '@react-native-firebase/storage';
@@ -32,6 +40,16 @@ const UserRegister = () => {
     if (password === password_confirmation) {
       try {
         await FirebaseUtil.signUp(email, password);
+
+        const { uri } = image;
+        const uploadUri =
+          Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+        const filename = uri.substring(uri.lastIndexOf('/') + 1);
+        const storageRef = storage().ref('users/' + filename);
+        // Precisamos esperar o upload para colocar a url da imagem no firestore
+        await storageRef.putFile(uploadUri);
+        const user_image_url = await storageRef.getDownloadURL();
+
         await FirebaseUtil.createUser(
           full_name,
           user_name,
@@ -41,14 +59,8 @@ const UserRegister = () => {
           state,
           age,
           phone,
+          user_image_url,
         );
-
-        const {uri} = image;
-        const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
-        const filename = uri.substring(uri.lastIndexOf('/') + 1);
-        await storage()
-          .ref('users/'+filename)
-          .putFile(uploadUri);
       } catch (e) {
         console.log(e.message);
         switch (e.code) {
@@ -58,6 +70,15 @@ const UserRegister = () => {
           case 'auth/invalid-email':
             alert('Email com formato incorreto');
             break;
+          case 'storage/object-not-found':
+            alert('Arquivo não existe');
+            break;
+          case 'storage/unauthorized':
+            alert('Sem autorização para upload de imagem');
+            break;
+          case 'storage/canceled':
+            alert('Usuário cancelou o upload');
+            break;
           default:
             alert(e.message);
         }
@@ -66,8 +87,6 @@ const UserRegister = () => {
       alert('Confirmação de senha diferente de senha');
     }
   };
-
-
 
   return (
     <ScrollView>

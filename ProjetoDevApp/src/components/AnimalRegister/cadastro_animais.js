@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, ScrollView, View, Text, TouchableOpacity, StatusBar} from 'react-native';
+import { StyleSheet, ScrollView, View, Text, TouchableOpacity, StatusBar, Platform} from 'react-native';
 import { CadastroAnimaisAdocaoCore } from './CadastroAnimaisAdocao';
 import { CadastroAnimaisApadrinharCore } from './CadastroAnimaisApadrinhar';
 import { CadastroAnimaisAjudaCore } from './CadastroAnimaisAjuda';
@@ -114,8 +114,16 @@ const Cadastro_Animais = () => {
     }
 
     const createAnimal = async () => {
-      try {
-        const owner_id = FirebaseUtil.getLoggedUser().uid;
+        try {
+            const owner_id = FirebaseUtil.getLoggedUser().uid;
+            const {uri} = image;
+            const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+            const filename = uri.substring(uri.lastIndexOf('/') + 1);
+            const storageRef = storage().ref('animals/' + filename);
+            // Precisamos esperar o upload para colocar a url da imagem no firestore
+            await storageRef.putFile(uploadUri);
+            const animal_image_url = await storageRef.getDownloadURL();
+
         await FirebaseUtil.createAnimal(
           nomeAnimal,
           racaAnimal,
@@ -125,16 +133,12 @@ const Cadastro_Animais = () => {
           tempAnimal(tempAnimal1, tempAnimal2, tempAnimal3, tempAnimal4, tempAnimal5, tempAnimal6),
           saudeAnimal(saudeAnimal1, saudeAnimal2, saudeAnimal3, saudeAnimal4),
           doencaAnimal,
-          owner_id
+          owner_id,
+          animal_image_url,
           );
-          const {uri} = image;
-          const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
-          const filename = uri.substring(uri.lastIndexOf('/') + 1);
-          await storage()
-            .ref('animals/'+filename)
-            .putFile(uploadUri);
         } catch (e) {
           alert("Ocorreu um erro ao cadastrar animal.");
+          console.log(e.message);
           return Promise.reject("Falha no cadastro");
         }
     }
