@@ -30,13 +30,40 @@ export const CoreComum_1 = (props) => {
 
             <View>
                 <TouchableOpacity
-                onPress={() => launchImageLibrary(setImage)}
+                    onPress={() => launchImageLibrary(setImage)}
                     style = {styles.touchableStyle}>
-                    <Icon
-                        name = 'plus-circle'
-                        style = {styles.plusStyle}>
-                    </Icon>
-                    <Text style = {styles.textPlusStyle}>Adicionar Foto</Text>
+                    {image? (
+                        <View
+                            style={{
+                            width: '100%',
+                            height: '100%',
+                            justifyContent: 'center',
+                            }}>
+                            <Image
+                            source={{ uri: image.uri }}
+                            style={{ width: '100%', height: '100%', resizeMode: 'cover' }}
+                            />
+                            <Icon
+                            name="plus-circle"
+                            style={{
+                                color: '#757575',
+                                fontSize: 25,
+                                opacity: 0.5,
+                                position: 'absolute',
+                                alignSelf: 'center',
+                            }}
+                            />
+                        </View>
+                    ) : (
+                        <>
+                            <Icon
+                                name = 'plus-circle'
+                                style = {styles.plusStyle}>
+                            </Icon>
+                            <Text style = {styles.textPlusStyle}>Adicionar Foto</Text>
+                        </>
+                    )}
+
                 </TouchableOpacity>
             </View>
 
@@ -218,10 +245,13 @@ const styles = StyleSheet.create({
         color : '#434343'
     },
     touchableStyle : {
-        height : 128,
+        height : 200,
         width : 312,
-        backgroundColor : '#f2f2f2',
-        alignItems : 'center'
+        backgroundColor : '#e6e7e7',
+        elevation: 5,
+        alignItems : 'center',
+        justifyContent: 'center',
+        alignSelf: 'center',
     },
     touchableStyle2 : {
         height : 30,
@@ -240,10 +270,11 @@ const styles = StyleSheet.create({
         color : '#434343'
     },
     textPlusStyle :{
-        fontSize : 14,
+        fontSize : 16,
         color : '#757575'
     },
     plusStyle : {
-        paddingTop : 55
+        fontSize : 16,
+        color : '#757575'
     }
 })

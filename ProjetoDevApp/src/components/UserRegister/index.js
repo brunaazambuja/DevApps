@@ -173,28 +173,42 @@ const UserRegister = () => {
               height: 180,
               elevation: 5,
             }}>
-              {image ? (
-              <View style={{ alignItems: 'center' }}>
+            {image ? (
+              <View
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  justifyContent: 'center',
+                }}>
                 <Image
-                  source={{uri: image.uri}}
-                  style={{ resizeMode: 'contain' }}
+                  source={{ uri: image.uri }}
+                  style={{ width: '100%', height: '100%', resizeMode: 'cover' }}
+                />
+                <Icon
+                  name="plus-circle"
+                  style={{
+                    color: '#757575',
+                    fontSize: 25,
+                    opacity: 0.5,
+                    position: 'absolute',
+                    alignSelf: 'center',
+                  }}
                 />
               </View>
-              ) : (
-                <>
+            ) : (
+              <>
                 <Icon
-                name="plus-circle"
-                style={{
-                  color: '#757575',
-                  fontSize: 25,
-                }}
+                  name="plus-circle"
+                  style={{
+                    color: '#757575',
+                    fontSize: 25,
+                  }}
                 />
                 <Text style={{ fontSize: 16, color: '#757575' }}>
-                adicionar foto
+                  adicionar foto
                 </Text>
-                </>
-              )}
-
+              </>
+            )}
           </TouchableOpacity>
           <Button onPress={() => signUp()}>FAZER CADASTRO</Button>
         </InputsContainer>
