@@ -5,6 +5,7 @@ import { Radio_Buttons_2 } from './RadioButtons2';
 import { CheckBox2 , CheckBox3} from './CheckBoxGroups';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import { StackActions } from '@react-navigation/routers';
 import { launchImageLibrary } from '../../utils/ImageUtil';
 
 export const CoreComum_1 = (props) => {
@@ -149,9 +150,12 @@ export const CoreComum_2 = (props) => {
 
     const tButtonPress = () => {
         setTButton(!tButton);
-        props.createAnimal();
-        navigation.navigate('AnimalRegister2');
-
+        try {
+            props.createAnimal();
+            navigation.dispatch(
+                StackActions.popToTop());
+            navigation.navigate('AnimalRegister2');
+        } catch (e) {}
     }
 
     return(

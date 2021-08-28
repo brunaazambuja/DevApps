@@ -134,7 +134,8 @@ const Cadastro_Animais = () => {
             .ref('animals/'+filename)
             .putFile(uploadUri);
         } catch (e) {
-          alert("Ocorreu um erro ao cadastrar animal.")
+          alert("Ocorreu um erro ao cadastrar animal.");
+          return Promise.reject("Falha no cadastro");
         }
     }
 
