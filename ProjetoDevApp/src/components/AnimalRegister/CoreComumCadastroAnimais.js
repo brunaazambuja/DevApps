@@ -1,12 +1,15 @@
 import React, {useState} from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, TextInput} from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Image} from 'react-native';
 import { Radio_Buttons_3 } from './RadioButtons3';
 import { Radio_Buttons_2 } from './RadioButtons2';
 import { CheckBox2 , CheckBox3} from './CheckBoxGroups';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import { StackActions } from '@react-navigation/routers';
+import { launchImageLibrary } from '../../utils/ImageUtil';
 
 export const CoreComum_1 = (props) => {
+    const {image, setImage} = props;
 
     return(
         <View>
@@ -27,12 +30,40 @@ export const CoreComum_1 = (props) => {
 
             <View>
                 <TouchableOpacity
+                    onPress={() => launchImageLibrary(setImage)}
                     style = {styles.touchableStyle}>
-                    <Icon
-                        name = 'plus-circle'
-                        style = {styles.plusStyle}>
-                    </Icon>
-                    <Text style = {styles.textPlusStyle}>Adicionar Foto</Text>
+                    {image? (
+                        <View
+                            style={{
+                            width: '100%',
+                            height: '100%',
+                            justifyContent: 'center',
+                            }}>
+                            <Image
+                            source={{ uri: image.uri }}
+                            style={{ width: '100%', height: '100%', resizeMode: 'cover' }}
+                            />
+                            <Icon
+                            name="plus-circle"
+                            style={{
+                                color: '#757575',
+                                fontSize: 25,
+                                opacity: 0.5,
+                                position: 'absolute',
+                                alignSelf: 'center',
+                            }}
+                            />
+                        </View>
+                    ) : (
+                        <>
+                            <Icon
+                                name = 'plus-circle'
+                                style = {styles.plusStyle}>
+                            </Icon>
+                            <Text style = {styles.textPlusStyle}>Adicionar Foto</Text>
+                        </>
+                    )}
+
                 </TouchableOpacity>
             </View>
 
@@ -146,9 +177,12 @@ export const CoreComum_2 = (props) => {
 
     const tButtonPress = () => {
         setTButton(!tButton);
-        props.createAnimal();
-        navigation.navigate('AnimalRegister2');
-        
+        try {
+            props.createAnimal();
+            navigation.dispatch(
+                StackActions.popToTop());
+            navigation.navigate('AnimalRegister2');
+        } catch (e) {}
     }
 
     return(
@@ -165,7 +199,7 @@ export const CoreComum_2 = (props) => {
             </TextInput>
 
             <View style = {styles.touchableStyle3}>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         style = {styles.touchableStyle2}
                         onPress = {tButtonPress}>
                         <Text style = {styles.textStyle}> {props.name} </Text>
@@ -211,10 +245,13 @@ const styles = StyleSheet.create({
         color : '#434343'
     },
     touchableStyle : {
-        height : 128,
+        height : 200,
         width : 312,
-        backgroundColor : '#f2f2f2',
-        alignItems : 'center'
+        backgroundColor : '#e6e7e7',
+        elevation: 5,
+        alignItems : 'center',
+        justifyContent: 'center',
+        alignSelf: 'center',
     },
     touchableStyle2 : {
         height : 30,
@@ -233,10 +270,11 @@ const styles = StyleSheet.create({
         color : '#434343'
     },
     textPlusStyle :{
-        fontSize : 14,
+        fontSize : 16,
         color : '#757575'
     },
     plusStyle : {
-        paddingTop : 55
+        fontSize : 16,
+        color : '#757575'
     }
 })

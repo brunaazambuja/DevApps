@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StatusBar } from 'react-native';
+import { View, TextInput, StatusBar } from 'react-native';
 import { Button } from 'react-native-paper';
 import { styles } from './styles';
 import FirebaseUtil from '../../utils/FirebaseUtil';
 
 const UserLogin = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const signIn = () => {
-    FirebaseUtil.signIn(username, password).catch(e => {
+    FirebaseUtil.signIn(email, password).catch(e => {
       console.log(e);
       alert('Email e/ou senha inválidos');
     });
-  }; // TODO: Mudar username para email
+  };
 
   return (
     <View>
@@ -23,9 +23,9 @@ const UserLogin = () => {
         <TextInput
           placeholder="Nome de usuário"
           placeholderTextColor="#bdbdbd"
-          defaultValue={username}
+          defaultValue={email}
           style={styles.inputField}
-          onChangeText={username => setUsername(username)}
+          onChangeText={email => setEmail(email)}
         />
         <TextInput
           placeholder="Senha"

@@ -6,13 +6,21 @@ import {
   TitleText,
   InputsContainer,
   Input,
-  ButtonText,
-  ButtonView,
 } from './styles';
 import Button from '../Button';
-import { ScrollView, Text, TouchableOpacity, StatusBar } from 'react-native';
+import {
+  ScrollView,
+  View,
+  Text,
+  TouchableOpacity,
+  StatusBar,
+  Image,
+  Platform,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import FirebaseUtil from '../../utils/FirebaseUtil';
+import storage from '@react-native-firebase/storage';
+import { launchImageLibrary } from '../../utils/ImageUtil';
 
 const UserRegister = () => {
   const [password, setPassword] = useState('');
@@ -26,10 +34,22 @@ const UserRegister = () => {
   const [age, setAge] = useState(0);
   const [phone, setPhone] = useState('');
 
+  const [image, setImage] = useState(null);
+
   const signUp = async () => {
     if (password === password_confirmation) {
       try {
         await FirebaseUtil.signUp(email, password);
+
+        const { uri } = image;
+        const uploadUri =
+          Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+        const filename = uri.substring(uri.lastIndexOf('/') + 1);
+        const storageRef = storage().ref('users/' + filename);
+        // Precisamos esperar o upload para colocar a url da imagem no firestore
+        await storageRef.putFile(uploadUri);
+        const user_image_url = await storageRef.getDownloadURL();
+
         await FirebaseUtil.createUser(
           full_name,
           user_name,
@@ -39,6 +59,7 @@ const UserRegister = () => {
           state,
           age,
           phone,
+          user_image_url,
         );
       } catch (e) {
         console.log(e.message);
@@ -48,6 +69,15 @@ const UserRegister = () => {
             break;
           case 'auth/invalid-email':
             alert('Email com formato incorreto');
+            break;
+          case 'storage/object-not-found':
+            alert('Arquivo não existe');
+            break;
+          case 'storage/unauthorized':
+            alert('Sem autorização para upload de imagem');
+            break;
+          case 'storage/canceled':
+            alert('Usuário cancelou o upload');
             break;
           default:
             alert(e.message);
@@ -131,6 +161,7 @@ const UserRegister = () => {
 
           <TitleText>FOTO DE PERFIL</TitleText>
           <TouchableOpacity
+            onPress={() => launchImageLibrary(setImage)}
             style={{
               alignSelf: 'center',
               backgroundColor: '#e6e7e7',
@@ -142,16 +173,42 @@ const UserRegister = () => {
               height: 180,
               elevation: 5,
             }}>
-            <Icon
-              name="plus-circle"
-              style={{
-                color: '#757575',
-                fontSize: 25,
-              }}
-            />
-            <Text style={{ fontSize: 16, color: '#757575' }}>
-              adicionar foto
-            </Text>
+            {image ? (
+              <View
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  justifyContent: 'center',
+                }}>
+                <Image
+                  source={{ uri: image.uri }}
+                  style={{ width: '100%', height: '100%', resizeMode: 'cover' }}
+                />
+                <Icon
+                  name="plus-circle"
+                  style={{
+                    color: '#757575',
+                    fontSize: 25,
+                    opacity: 0.5,
+                    position: 'absolute',
+                    alignSelf: 'center',
+                  }}
+                />
+              </View>
+            ) : (
+              <>
+                <Icon
+                  name="plus-circle"
+                  style={{
+                    color: '#757575',
+                    fontSize: 25,
+                  }}
+                />
+                <Text style={{ fontSize: 16, color: '#757575' }}>
+                  adicionar foto
+                </Text>
+              </>
+            )}
           </TouchableOpacity>
           <Button onPress={() => signUp()}>FAZER CADASTRO</Button>
         </InputsContainer>

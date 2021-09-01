@@ -1,15 +1,17 @@
 import React, {useState} from 'react';
-import { StyleSheet, ScrollView, View, Text, TouchableOpacity, StatusBar} from 'react-native';
+import { StyleSheet, ScrollView, View, Text, TouchableOpacity, StatusBar, Platform} from 'react-native';
 import { CadastroAnimaisAdocaoCore } from './CadastroAnimaisAdocao';
 import { CadastroAnimaisApadrinharCore } from './CadastroAnimaisApadrinhar';
 import { CadastroAnimaisAjudaCore } from './CadastroAnimaisAjuda';
 import { CoreComum_1, CoreComum_2 } from './CoreComumCadastroAnimais';
 import FirebaseUtil from '../../utils/FirebaseUtil';
+import storage from '@react-native-firebase/storage';
 
 const Cadastro_Animais = () => {
     const [ajuda, setAjuda] = useState(false);
     const [adocao, setAdocao] = useState(false);
     const [apad, setApad] = useState(false);
+    const [image, setImage] = useState(null);
 
     const ajudaPress = () => {
         setAjuda(true);
@@ -112,16 +114,33 @@ const Cadastro_Animais = () => {
     }
 
     const createAnimal = async () => {
+        try {
+            const owner_id = FirebaseUtil.getLoggedUser().uid;
+            const {uri} = image;
+            const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+            const filename = uri.substring(uri.lastIndexOf('/') + 1);
+            const storageRef = storage().ref('animals/' + filename);
+            // Precisamos esperar o upload para colocar a url da imagem no firestore
+            await storageRef.putFile(uploadUri);
+            const animal_image_url = await storageRef.getDownloadURL();
+
         await FirebaseUtil.createAnimal(
-            nomeAnimal,
-            racaAnimal,
-            sexoAnimal,
-            porteAnimal,
-            idadeAnimal,
-            tempAnimal(tempAnimal1, tempAnimal2, tempAnimal3, tempAnimal4, tempAnimal5, tempAnimal6),
-            saudeAnimal(saudeAnimal1, saudeAnimal2, saudeAnimal3, saudeAnimal4),
-            doencaAnimal
-        );
+          nomeAnimal,
+          racaAnimal,
+          sexoAnimal,
+          porteAnimal,
+          idadeAnimal,
+          tempAnimal(tempAnimal1, tempAnimal2, tempAnimal3, tempAnimal4, tempAnimal5, tempAnimal6),
+          saudeAnimal(saudeAnimal1, saudeAnimal2, saudeAnimal3, saudeAnimal4),
+          doencaAnimal,
+          owner_id,
+          animal_image_url,
+          );
+        } catch (e) {
+          alert("Ocorreu um erro ao cadastrar animal.");
+          console.log(e.message);
+          return Promise.reject("Falha no cadastro");
+        }
     }
 
     return(
@@ -157,30 +176,34 @@ const Cadastro_Animais = () => {
             {adocao ?
                 <View style = {styles.viewOptionStyle}>
                     <Text style = {styles.textTittleStyle}> Adoção </Text>
-                    <CoreComum_1
-                        setNomes = {setNomeAnimal}
-                        setDoenca = {setDoencaAnimal}
-                        setRaca = {setRacaAnimal}
-                        setSexo = {setSexoAnimal}
-                        setPorte = {setPorteAnimal}
-                        setIdade = {setIdadeAnimal}
-                        setTemp1 = {setTempAnimal1}
-                        setTemp2 = {setTempAnimal2}
-                        setTemp3 = {setTempAnimal3}
-                        setTemp4 = {setTempAnimal4}
-                        setTemp5 = {setTempAnimal5}
-                        setTemp6 = {setTempAnimal6}
-                        setSaude1 = {setSaudeAnimal1}
-                        setSaude2 = {setSaudeAnimal2}
-                        setSaude3 = {setSaudeAnimal3}
-                        setSaude4 = {setSaudeAnimal4}>
-                    </CoreComum_1>
+
+                        <CoreComum_1
+                          image = {image}
+                          setImage = {setImage}
+                          setNomes = {setNomeAnimal}
+                          setDoenca = {setDoencaAnimal}
+                          setRaca = {setRacaAnimal}
+                          setSexo = {setSexoAnimal}
+                          setPorte = {setPorteAnimal}
+                          setIdade = {setIdadeAnimal}
+                          setTemp1 = {setTempAnimal1}
+                          setTemp2 = {setTempAnimal2}
+                          setTemp3 = {setTempAnimal3}
+                          setTemp4 = {setTempAnimal4}
+                          setTemp5 = {setTempAnimal5}
+                          setTemp6 = {setTempAnimal6}
+                          setSaude1 = {setSaudeAnimal1}
+                          setSaude2 = {setSaudeAnimal2}
+                          setSaude3 = {setSaudeAnimal3}
+                          setSaude4 = {setSaudeAnimal4}>
+                        </CoreComum_1>
+
                     <CadastroAnimaisAdocaoCore></CadastroAnimaisAdocaoCore>
                     {ajuda ?    <View>
                                     <Text style = {styles.textTittleStyle}> Ajuda </Text>
                                     <CadastroAnimaisAjudaCore></CadastroAnimaisAjudaCore>
                                 </View>  : null}
-                    <CoreComum_2 
+                    <CoreComum_2
                         name = 'Colocar Para Adoção'
                         createAnimal = {createAnimal}></CoreComum_2>
                 </View> : null}
@@ -210,7 +233,7 @@ const Cadastro_Animais = () => {
                                     <Text style = {styles.textTittleStyle}> Ajuda </Text>
                                     <CadastroAnimaisAjudaCore></CadastroAnimaisAjudaCore>
                                 </View>  : null}
-                    <CoreComum_2 
+                    <CoreComum_2
                         name = 'Procurar Padrinho'
                         createAnimal = {createAnimal}></CoreComum_2>
                 </View> : null}
@@ -236,7 +259,7 @@ const Cadastro_Animais = () => {
                         setSaude4 = {setSaudeAnimal4}>
                     </CoreComum_1>
                     <CadastroAnimaisAjudaCore></CadastroAnimaisAjudaCore>
-                    <CoreComum_2 
+                    <CoreComum_2
                         name = 'Procurar Ajuda'
                         createAnimal = {createAnimal}></CoreComum_2>
                 </View> : null}
