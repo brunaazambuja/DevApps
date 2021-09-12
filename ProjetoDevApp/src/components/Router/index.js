@@ -31,6 +31,11 @@ const Router = () => {
         <Text style={styles.buttonText}>Cadastro de Animais Sucesso</Text>
       </PressableButton>
       <PressableButton
+        style={styles.animalRegisterButton}
+        onPress={() => navigation.navigate('AvailableAnimals')}>
+        <Text style={styles.buttonText}>Animais Disponíveis</Text>
+      </PressableButton>
+      <PressableButton
         style={styles.logoutButton}
         onPress={() => signOut()}>
         <Text style={styles.buttonText}>Logout</Text>

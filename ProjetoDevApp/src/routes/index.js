@@ -6,6 +6,7 @@ import TelaFinalCadastroAnimais from '../components/AnimalRegister/CadastroAnima
 import UserLogin from '../components/UserLogin';
 import LoginOrRegister from '../components/LoginOrRegister';
 import Router from '../components/Router';
+import AvailableAnimals from '../components/AvailableAnimals';
 
 import { LoginContext } from '../utils/LoginProvider';
 import { NavigationContainer } from '@react-navigation/native';
@@ -43,6 +44,14 @@ const Routes = () => {
                 title: 'Cadastro de Animais',
               }}
               component={TelaFinalCadastroAnimais}
+            />
+            <App.Screen
+              name="AvailableAnimals"
+              options={{
+                headerStyle: { backgroundColor: '#fee29b'},
+                title: 'Animais Disponíveis'
+              }}
+              component={AvailableAnimals}
             />
           </>
         ) : (
