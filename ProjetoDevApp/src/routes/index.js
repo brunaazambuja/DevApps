@@ -7,6 +7,7 @@ import UserLogin from '../components/UserLogin';
 import LoginOrRegister from '../components/LoginOrRegister';
 import Router from '../components/Router';
 import AvailableAnimals from '../components/AvailableAnimals';
+import AnimalProfile from '../components/AnimalProfile';
 
 import { LoginContext } from '../utils/LoginProvider';
 import { NavigationContainer } from '@react-navigation/native';
@@ -52,6 +53,14 @@ const Routes = () => {
                 title: 'Animais Disponíveis'
               }}
               component={AvailableAnimals}
+            />
+            <App.Screen
+              name="AnimalProfile"
+              options={{
+                headerStyle: { backgroundColor: '#fee29b'},
+                title: 'Perfil do Animal'
+              }}
+              component={AnimalProfile}
             />
           </>
         ) : (
