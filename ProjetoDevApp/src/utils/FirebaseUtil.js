@@ -62,4 +62,15 @@ export default class FirebaseUtil {
       animal_image_url,
   });
   };
+  static getAvailableAnimals = async () => {
+    const availableAnimals = await firestore().collection('Animals').get();
+    
+    let animalsArray = new Array();
+    
+    availableAnimals.forEach((animal) => {
+      animalsArray.push(animal.data());
+    });
+
+    return animalsArray;
+  };
 }
