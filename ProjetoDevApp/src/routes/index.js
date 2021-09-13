@@ -49,7 +49,7 @@ const Routes = () => {
             <App.Screen
               name="AvailableAnimals"
               options={{
-                headerStyle: { backgroundColor: '#fee29b'},
+                headerStyle: { backgroundColor: '#ffd358'},
                 title: 'Animais Disponíveis'
               }}
               component={AvailableAnimals}
@@ -57,7 +57,7 @@ const Routes = () => {
             <App.Screen
               name="AnimalProfile"
               options={{
-                headerStyle: { backgroundColor: '#fee29b'},
+                headerStyle: { backgroundColor: '#ffd358'},
                 title: 'Perfil do Animal'
               }}
               component={AnimalProfile}
