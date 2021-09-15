@@ -7,6 +7,7 @@ import UserLogin from '../components/UserLogin';
 import LoginOrRegister from '../components/LoginOrRegister';
 import Router from '../components/Router';
 import AvailableAnimals from '../components/AvailableAnimals';
+import MyAnimals from '../components/MyAnimals';
 import AnimalProfile from '../components/AnimalProfile';
 
 import { LoginContext } from '../utils/LoginProvider';
@@ -53,6 +54,14 @@ const Routes = () => {
                 title: 'Animais Disponíveis'
               }}
               component={AvailableAnimals}
+            />
+            <App.Screen
+              name="MyAnimals"
+              options={{
+                headerStyle: { backgroundColor: '#ffd358'},
+                title: 'Meus Animais'
+              }}
+              component={MyAnimals}
             />
             <App.Screen
               name="AnimalProfile"

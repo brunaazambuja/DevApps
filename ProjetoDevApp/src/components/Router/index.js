@@ -36,11 +36,16 @@ const Router = () => {
         <Text style={styles.buttonText}>Animais Disponíveis</Text>
       </PressableButton>
       <PressableButton
+        style={styles.animalRegisterButton}
+        onPress={() => navigation.navigate('MyAnimals')}>
+        <Text style={styles.buttonText}>Meus Animais</Text>
+      </PressableButton>
+      <PressableButton
         style={styles.logoutButton}
         onPress={() => signOut()}>
         <Text style={styles.buttonText}>Logout</Text>
       </PressableButton>
-      
+
     </View>
   );
 };
