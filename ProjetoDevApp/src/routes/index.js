@@ -9,6 +9,7 @@ import Router from '../components/Router';
 import AvailableAnimals from '../components/AvailableAnimals';
 import MyAnimals from '../components/MyAnimals';
 import AnimalProfile from '../components/AnimalProfile';
+import Notifications from '../components/Notifications';
 
 import { LoginContext } from '../utils/LoginProvider';
 import { NavigationContainer } from '@react-navigation/native';
@@ -62,6 +63,14 @@ const Routes = () => {
                 title: 'Meus Animais'
               }}
               component={MyAnimals}
+            />
+            <App.Screen
+              name="Notifications"
+              options={{
+                headerStyle: { backgroundColor: '#ffd358'},
+                title: 'Notificações'
+              }}
+              component={Notifications}
             />
             <App.Screen
               name="AnimalProfile"

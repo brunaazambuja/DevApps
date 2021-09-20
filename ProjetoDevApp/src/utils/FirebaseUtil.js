@@ -62,6 +62,35 @@ export default class FirebaseUtil {
       animal_image_url,
   });
   };
+  static sendAdoptionNotification = (
+    sender,
+    receiver,
+    message
+  ) => {
+    return firestore().collection('Notifications').add({
+    sender,
+    receiver,
+    message
+  });
+  };
+  static getNameUser = async (id) => {
+    const userName = await firestore().collection('Users').doc(id).get();
+    return userName.data().full_name;
+  }
+  static getAdoptionNotification = async (user) => {
+    const myNotifications = await firestore().collection('Notifications').where('receiver', '==', user.uid).get();
+
+    let notificationsArray = new Array();
+
+    myNotifications.forEach(async (notification) => {
+      notificationsArray.push({
+        message: notification.data().message,
+        sender: await this.getNameUser(notification.data().sender),
+      });
+    });
+
+    return notificationsArray;
+  };
   static getAvailableAnimals = async () => {
     const availableAnimals = await firestore().collection('Animals').get();
 
