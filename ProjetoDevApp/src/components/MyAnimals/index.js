@@ -20,23 +20,23 @@ const MyAnimals = () => {
   }, []);
 
   return (
-      <>
+    <>
       {listAnimals.length > 0 ? (
-      <>
-        <StatusBar backgroundColor="#f7a800" />
-        <ScrollView style={styles.scrollViewStyle}>
-          {listAnimals.map(animal => (
-            <AnimalIcons
-              animal_data={animal}
-              key={animal.name_animal}></AnimalIcons>
-          ))}
-          <View style={{ height: 30 }}></View>
-        </ScrollView>
-      </>
+        <>
+          <StatusBar backgroundColor="#f7a800" />
+          <ScrollView style={styles.scrollViewStyle}>
+            {listAnimals.map(animal => (
+              <AnimalIcons
+                animal_data={animal}
+                key={animal.name_animal}></AnimalIcons>
+            ))}
+            <View style={{ height: 30 }}></View>
+          </ScrollView>
+        </>
       ) : (
         <Text style={styles.textNoAnimals}> Nenhum animal cadastrado! </Text>
       )}
-      </>
+    </>
   );
 };
 

@@ -25,4 +25,18 @@ export const styles = StyleSheet.create({
     marginLeft: 40,
     marginBottom: 20,
   },
+  buttonText: {
+    color: '#434343',
+    fontSize: 16,
+    textTransform: 'uppercase',
+    fontWeight: 'normal',
+  },
+  adoptButton: {
+    backgroundColor: '#ffd358',
+    alignSelf: 'center',
+    margin: 20,
+    height: 54,
+    width: 280,
+    elevation: 5,
+  },
 });
