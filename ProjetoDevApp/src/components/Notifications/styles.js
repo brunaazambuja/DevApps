@@ -1,40 +1,59 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  touchableOpacityStyle: {
-    width: 300,
-    height: 200,
-    alignSelf: 'center',
-    margin: 30,
-    elevation: 5,
-  },
-  statusBarStyle: {
-    color: '#fee29b',
-  },
   scrollViewStyle: {
     alignContent: 'center',
-  },
-  topBarStyle: {
-    alignSelf: 'stretch',
-    height: 30,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  textTopBarStyle: {
-    color: 'black',
-    alignSelf: 'baseline',
-    paddingHorizontal: 10,
-    fontSize: 20,
-    borderColor: '#fee29b',
-    borderRadius: 5,
-    borderWidth: 3
+    flexGrow: 1,
   },
   textNoNotifications: {
     color: 'black',
-    backgroundColor: '#fee29b',
     textAlign: 'center',
-    paddingVertical: 30,
     fontSize: 25,
+  },
+  viewNoNotifications: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+  },
+  notificationCardView: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: '#ebc052',
+    backgroundColor: '#f7ecd0',
+    borderWidth: 2,
+    borderRadius: 10,
+    padding: 5,
+    margin: 5,
+  },
+  buttonText: {
+    color: '#434343',
+    fontSize: 16,
+    textTransform: 'uppercase',
+    fontWeight: 'normal',
+  },
+  acceptButton: {
+    backgroundColor: '#5ced83',
+    margin: 5,
+    height: 34,
+    width: 100,
+    elevation: 5,
+  },
+  rejectButton: {
+    backgroundColor: '#fa6969',
+    margin: 5,
+    height: 34,
+    width: 100,
+    elevation: 5,
+  },
+  okButton: {
+    backgroundColor: '#4ea3f2',
+    margin: 5,
+    height: 34,
+    width: 100,
+    elevation: 5,
   },
 });
