@@ -22,5 +22,5 @@ export const styles = StyleSheet.create({
     height: 54,
     width: 280,
     elevation: 5,
-  }
+  },
 });

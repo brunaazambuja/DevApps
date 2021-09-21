@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
-import {
-  ScrollView,
-  Text,
-  StatusBar,
-  View,
-} from 'react-native';
+import { ScrollView, Text, StatusBar, View } from 'react-native';
 import FirebaseUtil from '../../utils/FirebaseUtil';
 import PressableButton from '../PressableButton/PressableButton';
 import { useFocusEffect } from '@react-navigation/native';
@@ -12,7 +7,6 @@ import { styles } from './styles';
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
-  const [sender, setSender] = useState(null);
 
   // Quando a tela de notificações abrir, o hook se inscreve para receber updates
   // quando ela perder o foco, desinscreve
@@ -40,8 +34,7 @@ const Notifications = () => {
           </ScrollView>
         </>
       ) : (
-        <View
-          style={styles.viewNoNotifications}>
+        <View style={styles.viewNoNotifications}>
           <Text style={styles.textNoNotifications}>
             Você não possui notificações!
           </Text>
@@ -53,8 +46,7 @@ const Notifications = () => {
 
 const NotificationCard = ({ notification_data }) => {
   return (
-    <View
-      style={styles.notificationCardView}>
+    <View style={styles.notificationCardView}>
       <Text style={{ color: '#434343', fontSize: 18 }}>
         {notification_data.message}
       </Text>
