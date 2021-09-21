@@ -64,10 +64,21 @@ export default class FirebaseUtil {
   };
   static getAvailableAnimals = async () => {
     const availableAnimals = await firestore().collection('Animals').get();
-    
+
     let animalsArray = new Array();
-    
+
     availableAnimals.forEach((animal) => {
+      animalsArray.push(animal.data());
+    });
+
+    return animalsArray;
+  };
+  static getMyAnimals = async (user) => {
+    const myAnimals = await firestore().collection('Animals').where('owner_id', '==', user.uid).get();
+
+    let animalsArray = new Array();
+
+    myAnimals.forEach((animal) => {
       animalsArray.push(animal.data());
     });
 
