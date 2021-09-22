@@ -15,7 +15,8 @@ const AvailableAnimals = () => {
   const [listAnimals, setListAnimals] = useState([]);
 
   useEffect(() => {
-    FirebaseUtil.getAvailableAnimals().then(animals => setListAnimals(animals));
+    const user = FirebaseUtil.getLoggedUser();
+    FirebaseUtil.getAvailableAnimals(user).then(animals => setListAnimals(animals));
   }, []);
 
   return (
@@ -40,7 +41,7 @@ const AnimalIcons = ({ animal_data }) => {
     <TouchableOpacity
       style={styles.touchableOpacityStyle}
       onPress={() =>
-        navigation.navigate('AnimalProfile', { animal_data: animal_data })
+        navigation.navigate('AnimalProfile', { animal_data: animal_data , display_adoption_button : true})
       }>
       <View style={styles.topBarStyle}>
         <Text style={styles.textTopBarStyle}> {animal_data.name_animal} </Text>

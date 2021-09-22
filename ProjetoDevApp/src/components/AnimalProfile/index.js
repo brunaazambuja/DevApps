@@ -46,14 +46,15 @@ const AnimalProfile = ({ route }) => {
           {health}
         </Text>
       ))}
-      <PressableButton
-        style={styles.adoptButton}
-        onPress={() => {
-          FirebaseUtil.sendAdoptionNotification(route.params.animal_data);
-          navigation.navigate('Home');
-        }}>
-        <Text style={styles.buttonText}>Quero adotar!</Text>
-      </PressableButton>
+      { route.params.display_adoption_button ?
+        <PressableButton
+          style={styles.adoptButton}
+          onPress={() => {
+            FirebaseUtil.sendAdoptionNotification(route.params.animal_data);
+            navigation.navigate('Home');
+          }}>
+          <Text style={styles.buttonText}>Quero adotar!</Text>
+        </PressableButton> : null}
     </ScrollView>
   );
 };
