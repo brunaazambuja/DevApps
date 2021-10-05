@@ -99,8 +99,11 @@ export default class FirebaseUtil {
 
     return subscriber;
   };
-  static getAvailableAnimals = async () => {
-    const availableAnimals = await firestore().collection('Animals').get();
+  static getAvailableAnimals = async user => {
+    const availableAnimals = await firestore()
+                                    .collection('Animals')
+                                    .where('owner_id', '!=', user.uid)
+                                    .get();
 
     let animalsArray = new Array();
 
