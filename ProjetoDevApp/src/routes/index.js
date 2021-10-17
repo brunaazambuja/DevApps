@@ -10,6 +10,7 @@ import AvailableAnimals from '../components/AvailableAnimals';
 import MyAnimals from '../components/MyAnimals';
 import AnimalProfile from '../components/AnimalProfile';
 import Notifications from '../components/Notifications';
+import Chat from '../components/ChatScreen';
 
 import { LoginContext } from '../utils/LoginProvider';
 import { NavigationContainer } from '@react-navigation/native';
@@ -79,6 +80,14 @@ const Routes = () => {
                 title: 'Perfil do Animal'
               }}
               component={AnimalProfile}
+            />
+            <App.Screen
+              name="Chat"
+              options={{
+                headerStyle: { backgroundColor: '#ffd358'},
+                title: 'Chat'
+              }}
+              component={Chat}
             />
           </>
         ) : (

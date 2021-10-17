@@ -1,4 +1,4 @@
-import auth from '@react-native-firebase/auth';
+import auth, { firebase } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 export default class FirebaseUtil {
@@ -171,4 +171,42 @@ export default class FirebaseUtil {
     await firestore().collection('Notifications').doc(notification.id).delete();
     await animal.ref.update({ owner_id: notification.sender_uid });
   };
+
+  static addMessage = (m, sender, receiver) => {
+    return firestore().collection('Chats').add({receiver: receiver, sender: sender,...m});
+  };
+
+  static getMessages = async (sender, receiver) =>{
+    let querry = firestore().collection('Chats');
+    let messages1 = await querry.where('receiver', '==', receiver)
+                                .where('sender', '==', sender).get();
+    let messages2 = await querry.where('receiver', '==',sender)
+                                .where('sender', '==', receiver).get();
+    //messages = messages.orderBy('createdAt');
+   
+
+    let arrayMessages = [];
+ 
+    messages1.forEach( mess => {
+        arrayMessages.push({
+                _id: mess.data()._id,
+                createdAt: mess.data().createdAt,
+                text: mess.data().text,
+                user: mess.data().user
+        });
+    });
+    messages2.forEach( mess => {
+      arrayMessages.push({
+              _id: mess.data()._id,
+              createdAt: mess.data().createdAt,
+              text: mess.data().text,
+              user: mess.data().user
+      });
+    });
+
+    arrayMessages.sort((m1, m2) => {return m1.createdAt < m2.createdAt;});
+
+    return arrayMessages;
+  };
+
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ScrollView, Text, StatusBar, View } from 'react-native';
 import FirebaseUtil from '../../utils/FirebaseUtil';
 import PressableButton from '../PressableButton/PressableButton';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { styles } from './styles';
 
 const Notifications = () => {
@@ -45,6 +45,8 @@ const Notifications = () => {
 };
 
 const NotificationCard = ({ notification_data }) => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.notificationCardView}>
       <Text style={{ color: '#434343', fontSize: 18 }}>
@@ -67,6 +69,13 @@ const NotificationCard = ({ notification_data }) => {
               FirebaseUtil.adoptionRejection(notification_data);
             }}>
             <Text style={styles.buttonText}>Negar</Text>
+          </PressableButton>
+          <PressableButton
+            style={styles.acceptButton}
+            onPress={() => {
+              navigation.navigate('Chat', {receiver: notification_data.receiver, sender: notification_data.sender_uid});
+            }}>
+            <Text style={styles.buttonText}>Chat</Text>
           </PressableButton>
         </View>
       ) : (
