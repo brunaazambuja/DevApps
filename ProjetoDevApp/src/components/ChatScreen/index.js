@@ -6,9 +6,10 @@ import FirebaseUtil from '../../utils/FirebaseUtil';
 
 const Chat = ({route}) => {
     const [messages, setMessages] = useState([]);
+    const userID = FirebaseUtil.getLoggedUser().uid;
 
     useLayoutEffect(() => {
-        FirebaseUtil.getMessages(route.params.sender, route.params.receiver).then(arrayMessages => {
+        FirebaseUtil.getMessages(route.params.user, route.params.talker, route.params.animal).then(arrayMessages => {
             setMessages(arrayMessages);
         });
     }, []);
@@ -16,7 +17,7 @@ const Chat = ({route}) => {
     const onSend = (messages = []) => {
         setMessages(previousMessages => GiftedChat.append(previousMessages, messages));
         let m = messages[0];
-        FirebaseUtil.addMessage(m, route.params.receiver, route.params.sender);
+        FirebaseUtil.addMessage(m, userID, route.params.talker, route.params.animal);
     };
 
     return (
@@ -29,7 +30,7 @@ const Chat = ({route}) => {
             showAvatarForEveryMessage={true}
             onSend={messages => onSend(messages)}
             user={{
-                _id: route.params.receiver
+                _id: userID
             }}
         />
     );

@@ -99,6 +99,19 @@ export default class FirebaseUtil {
 
     return subscriber;
   };
+  static getSenderNotifictifications = async (sender,) => {
+    const notificationsSended = await firestore().collection('Notifications')
+                                        .where('sender', '==', sender).get();
+    let arrayNotifications = new Array();
+
+    notificationsSended.forEach(notification => {
+      arrayNotifications.push({sender: notification.data().sender,
+                              receiver: notification.data().receiver,
+                              animal: notification.data().animal_id});
+    });
+
+    return arrayNotifications;
+  };
   static getAvailableAnimals = async user => {
     const availableAnimals = await firestore()
                                     .collection('Animals')
@@ -172,16 +185,18 @@ export default class FirebaseUtil {
     await animal.ref.update({ owner_id: notification.sender_uid });
   };
 
-  static addMessage = (m, sender, receiver) => {
-    return firestore().collection('Chats').add({receiver: receiver, sender: sender,...m});
+  static addMessage = (m, sender, receiver, animal) => {
+    return firestore().collection('Chats').add({receiver: receiver, sender: sender, animal: animal, ...m});
   };
 
-  static getMessages = async (sender, receiver) =>{
+  static getMessages = async (sender, receiver, animal) =>{
     let querry = firestore().collection('Chats');
     let messages1 = await querry.where('receiver', '==', receiver)
-                                .where('sender', '==', sender).get();
+                                .where('sender', '==', sender)
+                                .where('animal', '==', animal).get();
     let messages2 = await querry.where('receiver', '==',sender)
-                                .where('sender', '==', receiver).get();
+                                .where('sender', '==', receiver)
+                                .where('animal', '==', animal).get();
     //messages = messages.orderBy('createdAt');
    
 
