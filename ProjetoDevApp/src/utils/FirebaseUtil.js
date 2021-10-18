@@ -77,6 +77,10 @@ export default class FirebaseUtil {
     const userName = await firestore().collection('Users').doc(id).get();
     return userName.data().user_name;
   };
+  static getUserImage = async id => {
+    const userImage = await firestore().collection('Users').doc(id).get();
+    return userImage.data().user_image_url;
+  };
   static getAdoptionNotification = (user, setNotifications) => {
     // Esta função atualizará as notifications usando setNotifications sempre que
     // ocorrerem atualizações no firestore.
