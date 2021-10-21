@@ -6,10 +6,23 @@ import { CheckBox2 , CheckBox3} from './CheckBoxGroups';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import { StackActions } from '@react-navigation/routers';
-import { launchImageLibrary } from '../../utils/ImageUtil';
+import { launchImageLibrary, launchImageCamera } from '../../utils/ImageUtil';
+import { Menu, Provider} from 'react-native-paper';
 
 export const CoreComum_1 = (props) => {
+    const [visible, setVisible] = useState(false);
     const {image, setImage} = props;
+
+    const galeryOption = () => {
+        launchImageLibrary(setImage);
+        setVisible(false);
+    };
+
+    const cameraOption = () => {
+        launchImageCamera(setImage);
+        setVisible(false);
+    };
+
 
     return(
         <View>
@@ -28,44 +41,53 @@ export const CoreComum_1 = (props) => {
                 Fotos do Animal
             </Text>
 
-            <View>
-                <TouchableOpacity
-                    onPress={() => launchImageLibrary(setImage)}
-                    style = {styles.touchableStyle}>
-                    {image? (
-                        <View
-                            style={{
-                            width: '100%',
-                            height: '100%',
-                            justifyContent: 'center',
-                            }}>
-                            <Image
-                            source={{ uri: image.uri }}
-                            style={{ width: '100%', height: '100%', resizeMode: 'cover' }}
-                            />
-                            <Icon
-                            name="plus-circle"
-                            style={{
-                                color: '#757575',
-                                fontSize: 25,
-                                opacity: 0.5,
-                                position: 'absolute',
-                                alignSelf: 'center',
-                            }}
-                            />
-                        </View>
-                    ) : (
-                        <>
-                            <Icon
-                                name = 'plus-circle'
-                                style = {styles.plusStyle}>
-                            </Icon>
-                            <Text style = {styles.textPlusStyle}>Adicionar Foto</Text>
-                        </>
-                    )}
+            <Provider>
+                <View>
+                    <Menu
+                        visible={visible}
+                        onDismiss={() => setVisible(false)}
+                        anchor={
+                            <TouchableOpacity
+                                onPress={() => setVisible(true)}
+                                style = {styles.touchableStyle}>
+                                {image? (
+                                    <View
+                                        style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        justifyContent: 'center',
+                                        }}>
+                                        <Image
+                                        source={{ uri: image.uri }}
+                                        style={{ width: '100%', height: '100%', resizeMode: 'cover' }}
+                                        />
+                                        <Icon
+                                        name="plus-circle"
+                                        style={{
+                                            color: '#757575',
+                                            fontSize: 25,
+                                            opacity: 0.5,
+                                            position: 'absolute',
+                                            alignSelf: 'center',
+                                        }}
+                                        />
+                                    </View>
+                                ) : (
+                                    <>
+                                        <Icon
+                                            name = 'plus-circle'
+                                            style = {styles.plusStyle}>
+                                        </Icon>
+                                        <Text style = {styles.textPlusStyle}>Adicionar Foto</Text>
+                                    </>
+                                )}
 
-                </TouchableOpacity>
-            </View>
+                            </TouchableOpacity>}>
+                        <Menu.Item onPress={() => galeryOption()} title="Pegar foto da galeria" />
+                        <Menu.Item onPress={() => cameraOption()} title="Pegar foto da câmera" />
+                    </Menu>
+                </View>
+            </Provider>
 
             <Text style = {styles.text2}>
                 Espécie

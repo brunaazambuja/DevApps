@@ -21,3 +21,25 @@ export const launchImageLibrary = async (callback) => {
     }
   });
 }
+
+export const launchImageCamera = async (callback) => {
+  let options = {
+    storageOptions: {
+      skipBackup: true,
+      path: 'images',
+    },
+  };
+  ImagePicker.launchCamera(options, (response) => {
+    if (response.didCancel) {
+      console.log('User cancelled image picker');
+    } else if (response.error) {
+      console.log('ImagePicker Error: ', response.error);
+    } else if (response.customButton) {
+      console.log('User tapped custom button: ', response.customButton);
+      alert(response.customButton);
+    } else {
+      const source = { uri: response.assets[0].uri };
+      callback(source);
+    }
+  });
+}

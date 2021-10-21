@@ -20,7 +20,8 @@ import {
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import FirebaseUtil from '../../utils/FirebaseUtil';
 import storage from '@react-native-firebase/storage';
-import { launchImageLibrary } from '../../utils/ImageUtil';
+import { launchImageLibrary, launchImageCamera } from '../../utils/ImageUtil';
+import { Menu, Provider} from 'react-native-paper';
 
 const UserRegister = () => {
   const [password, setPassword] = useState('');
@@ -35,6 +36,17 @@ const UserRegister = () => {
   const [phone, setPhone] = useState('');
 
   const [image, setImage] = useState(null);
+  const [visible, setVisible] = useState(false);
+
+  const galeryOption = () => {
+    launchImageLibrary(setImage);
+    setVisible(false);
+  };
+
+  const cameraOption = () => {
+    launchImageCamera(setImage);
+    setVisible(false);
+  };
 
   const signUp = async () => {
     if (password === password_confirmation) {
@@ -160,56 +172,69 @@ const UserRegister = () => {
           />
 
           <TitleText>FOTO DE PERFIL</TitleText>
-          <TouchableOpacity
-            onPress={() => launchImageLibrary(setImage)}
-            style={{
-              alignSelf: 'center',
-              backgroundColor: '#e6e7e7',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: 180,
-              height: 180,
-              elevation: 5,
-            }}>
-            {image ? (
-              <View
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  justifyContent: 'center',
-                }}>
-                <Image
-                  source={{ uri: image.uri }}
-                  style={{ width: '100%', height: '100%', resizeMode: 'cover' }}
-                />
-                <Icon
-                  name="plus-circle"
-                  style={{
-                    color: '#757575',
-                    fontSize: 25,
-                    opacity: 0.5,
-                    position: 'absolute',
-                    alignSelf: 'center',
-                  }}
-                />
-              </View>
-            ) : (
-              <>
-                <Icon
-                  name="plus-circle"
-                  style={{
-                    color: '#757575',
-                    fontSize: 25,
-                  }}
-                />
-                <Text style={{ fontSize: 16, color: '#757575' }}>
-                  adicionar foto
-                </Text>
-              </>
-            )}
-          </TouchableOpacity>
+
+          <Provider>
+            <View>
+              <Menu
+                visible={visible}
+                onDismiss={() => setVisible(false)}
+                anchor={
+                    <TouchableOpacity
+                      onPress={() => setVisible(true)}
+                      style={{
+                        alignSelf: 'center',
+                        backgroundColor: '#e6e7e7',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: 180,
+                        height: 180,
+                        elevation: 5,
+                      }}>
+                      {image ? (
+                        <View
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            justifyContent: 'center',
+                          }}>
+                          <Image
+                            source={{ uri: image.uri }}
+                            style={{ width: '100%', height: '100%', resizeMode: 'cover' }}
+                          />
+                          <Icon
+                            name="plus-circle"
+                            style={{
+                              color: '#757575',
+                              fontSize: 25,
+                              opacity: 0.5,
+                              position: 'absolute',
+                              alignSelf: 'center',
+                            }}
+                          />
+                        </View>
+                      ) : (
+                        <>
+                          <Icon
+                            name="plus-circle"
+                            style={{
+                              color: '#757575',
+                              fontSize: 25,
+                            }}
+                          />
+                          <Text style={{ fontSize: 16, color: '#757575' }}>
+                            adicionar foto
+                          </Text>
+                        </>
+                      )}
+                    </TouchableOpacity>}>
+                  <Menu.Item onPress={() => galeryOption()} title="Pegar foto da galeria" />
+                  <Menu.Item onPress={() => cameraOption()} title="Pegar foto da câmera" />
+              </Menu>
+            </View>
+          </Provider>
+
           <Button onPress={() => signUp()}>FAZER CADASTRO</Button>
         </InputsContainer>
       </Container>
