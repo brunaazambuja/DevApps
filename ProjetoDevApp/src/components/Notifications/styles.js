@@ -49,6 +49,13 @@ export const styles = StyleSheet.create({
     width: 100,
     elevation: 5,
   },
+  chatButton: {
+    backgroundColor: '#ffd358',
+    margin: 5,
+    height: 34,
+    width: 100,
+    elevation: 5,
+  },
   okButton: {
     backgroundColor: '#4ea3f2',
     margin: 5,

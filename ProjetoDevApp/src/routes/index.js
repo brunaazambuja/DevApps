@@ -10,11 +10,12 @@ import AvailableAnimals from '../components/AvailableAnimals';
 import MyAnimals from '../components/MyAnimals';
 import AnimalProfile from '../components/AnimalProfile';
 import Notifications from '../components/Notifications';
+import Chat from '../components/ChatScreen';
 
 import { LoginContext } from '../utils/LoginProvider';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+import FirebaseUtil from '../utils/FirebaseUtil';
 
 const App = createNativeStackNavigator();
 
@@ -51,34 +52,42 @@ const Routes = () => {
             <App.Screen
               name="AvailableAnimals"
               options={{
-                headerStyle: { backgroundColor: '#ffd358'},
-                title: 'Animais Disponíveis'
+                headerStyle: { backgroundColor: '#ffd358' },
+                title: 'Animais Disponíveis',
               }}
               component={AvailableAnimals}
             />
             <App.Screen
               name="MyAnimals"
               options={{
-                headerStyle: { backgroundColor: '#ffd358'},
-                title: 'Meus Animais'
+                headerStyle: { backgroundColor: '#ffd358' },
+                title: 'Meus Animais',
               }}
               component={MyAnimals}
             />
             <App.Screen
               name="Notifications"
               options={{
-                headerStyle: { backgroundColor: '#ffd358'},
-                title: 'Notificações'
+                headerStyle: { backgroundColor: '#ffd358' },
+                title: 'Notificações',
               }}
               component={Notifications}
             />
             <App.Screen
               name="AnimalProfile"
               options={{
-                headerStyle: { backgroundColor: '#ffd358'},
-                title: 'Perfil do Animal'
+                headerStyle: { backgroundColor: '#ffd358' },
+                title: 'Perfil do Animal',
               }}
               component={AnimalProfile}
+            />
+            <App.Screen
+              name="Chat"
+              options={({ route }) => ({
+                headerStyle: { backgroundColor: '#ffd358' },
+                title: route.params.talker_name,
+              })}
+              component={Chat}
             />
           </>
         ) : (
