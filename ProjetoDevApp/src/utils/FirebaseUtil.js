@@ -209,7 +209,7 @@ export default class FirebaseUtil {
     messages1.forEach( mess => {
         arrayMessages.push({
                 _id: mess.data()._id,
-                createdAt: mess.data().createdAt,
+                createdAt: mess.data().createdAt.toDate(),
                 text: mess.data().text,
                 user: mess.data().user
         });
@@ -217,7 +217,7 @@ export default class FirebaseUtil {
     messages2.forEach( mess => {
       arrayMessages.push({
               _id: mess.data()._id,
-              createdAt: mess.data().createdAt,
+              createdAt: mess.data().createdAt.toDate(),
               text: mess.data().text,
               user: mess.data().user
       });

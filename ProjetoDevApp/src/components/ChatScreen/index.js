@@ -30,6 +30,7 @@ const Chat = ({route}) => {
         </View>*/
         <GiftedChat
             messages={messages}
+            messagesContainerStyle={{backgroundColor:'white'}}
             showAvatarForEveryMessage={true}
             onSend={messages => onSend(messages)}
             user={{
