@@ -11,6 +11,7 @@ import MyAnimals from '../components/MyAnimals';
 import AnimalProfile from '../components/AnimalProfile';
 import Notifications from '../components/Notifications';
 import Chat from '../components/ChatScreen';
+import Credits from '../components/Credits';
 
 import { LoginContext } from '../utils/LoginProvider';
 import { NavigationContainer } from '@react-navigation/native';
@@ -114,6 +115,15 @@ const Routes = () => {
                 headerTitleStyle: { color: '#434343' },
               }}
               component={UserRegister}
+            />
+            <App.Screen
+              name="Credits"
+              options={{
+                headerStyle: { backgroundColor: '#cfe9e5' },
+                title: 'Créditos',
+                headerTitleStyle: { color: '#434343' },
+              }}
+              component={Credits}
             />
           </>
         )}

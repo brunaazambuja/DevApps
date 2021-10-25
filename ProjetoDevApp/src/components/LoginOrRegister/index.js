@@ -36,6 +36,14 @@ const LoginOrRegister = () => {
         <Text style={styles.buttonText}>Fazer login</Text>
       </PressableButton>
 
+      <Text style={styles.normalText}>Créditos</Text>
+
+      <PressableButton
+        style={styles.button}
+        onPress={() => navigation.navigate('Credits')}>
+        <Text style={styles.buttonText}>Créditos</Text>
+      </PressableButton>
+
       <View style={{ height: 58 }} />
     </View>
   );
