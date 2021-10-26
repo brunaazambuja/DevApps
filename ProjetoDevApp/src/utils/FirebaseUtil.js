@@ -103,24 +103,28 @@ export default class FirebaseUtil {
 
     return subscriber;
   };
-  static getSenderNotifictifications = async (sender,) => {
-    const notificationsSended = await firestore().collection('Notifications')
-                                        .where('sender', '==', sender).get();
+  static getSenderNotifictifications = async sender => {
+    const notificationsSended = await firestore()
+      .collection('Notifications')
+      .where('sender', '==', sender)
+      .get();
     let arrayNotifications = new Array();
 
     notificationsSended.forEach(notification => {
-      arrayNotifications.push({sender: notification.data().sender,
-                              receiver: notification.data().receiver,
-                              animal: notification.data().animal_id});
+      arrayNotifications.push({
+        sender: notification.data().sender,
+        receiver: notification.data().receiver,
+        animal: notification.data().animal_id,
+      });
     });
 
     return arrayNotifications;
   };
   static getAvailableAnimals = async user => {
     const availableAnimals = await firestore()
-                                    .collection('Animals')
-                                    .where('owner_id', '!=', user.uid)
-                                    .get();
+      .collection('Animals')
+      .where('owner_id', '!=', user.uid)
+      .get();
 
     let animalsArray = new Array();
 
@@ -190,42 +194,50 @@ export default class FirebaseUtil {
   };
 
   static addMessage = (m, sender, receiver, animal) => {
-    return firestore().collection('Chats').add({receiver: receiver, sender: sender, animal: animal, ...m});
+    return firestore()
+      .collection('Chats')
+      .add({ receiver: receiver, sender: sender, animal: animal, ...m });
   };
 
-  static getMessages = async (sender, receiver, animal) =>{
-    let querry = firestore().collection('Chats');
-    let messages1 = await querry.where('receiver', '==', receiver)
-                                .where('sender', '==', sender)
-                                .where('animal', '==', animal).get();
-    let messages2 = await querry.where('receiver', '==',sender)
-                                .where('sender', '==', receiver)
-                                .where('animal', '==', animal).get();
-    //messages = messages.orderBy('createdAt');
-   
+  static getMessagesListener = (sender, receiver, animal, setMessages) => {
+    let query = firestore().collection('Chats');
 
-    let arrayMessages = [];
- 
-    messages1.forEach( mess => {
-        arrayMessages.push({
-                _id: mess.data()._id,
-                createdAt: mess.data().createdAt.toDate(),
-                text: mess.data().text,
-                user: mess.data().user
+    const update = querySnapshot => {
+      const messages1 = querySnapshot.docChanges();
+
+      setMessages(messages => {
+        let messagesNew = [...messages];
+        messages1.forEach(change => {
+          const mess = change.doc;
+          messagesNew.push({
+            _id: mess.data()._id,
+            createdAt: mess.data().createdAt.toDate(),
+            text: mess.data().text,
+            user: mess.data().user,
+          });
         });
-    });
-    messages2.forEach( mess => {
-      arrayMessages.push({
-              _id: mess.data()._id,
-              createdAt: mess.data().createdAt.toDate(),
-              text: mess.data().text,
-              user: mess.data().user
+
+        messagesNew.sort((m1, m2) => {
+          return m1.createdAt < m2.createdAt;
+        });
+        return messagesNew;
       });
-    });
+    };
 
-    arrayMessages.sort((m1, m2) => {return m1.createdAt < m2.createdAt;});
-
-    return arrayMessages;
+    const subscriber1 = query
+      .where('receiver', '==', receiver)
+      .where('sender', '==', sender)
+      .where('animal', '==', animal)
+      .onSnapshot(querySnapshot => {
+        update(querySnapshot);
+      });
+    const subscriber2 = query
+      .where('receiver', '==', sender)
+      .where('sender', '==', receiver)
+      .where('animal', '==', animal)
+      .onSnapshot(querySnapshot => {
+        update(querySnapshot);
+      });
+    return { subscriber1, subscriber2 };
   };
-
 }
