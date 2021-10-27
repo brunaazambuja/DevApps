@@ -24,7 +24,7 @@ const UserProfile = () => {
   }, []);
 
   return (
-    <View style={{height:'100%'}}>
+    <View style={{ height: '100%' }}>
       <View
         style={{
           alignContent: 'center',
@@ -36,7 +36,14 @@ const UserProfile = () => {
           style={{ height: 200, width: 200, borderRadius: 100 }}></Image>
         <Text style={{ marginTop: 10, fontSize: 32 }}>{userName}</Text>
       </View>
-      <View style={{flex:1, flexGrow:1, flexDirection:'column', justifyContent: 'flex-end', marginBottom: 30}}>
+      <View
+        style={{
+          flex: 1,
+          flexGrow: 1,
+          flexDirection: 'column',
+          justifyContent: 'flex-end',
+          marginBottom: 30,
+        }}>
         <PressableButton
           style={{
             backgroundColor: '#ffd358',
@@ -45,7 +52,8 @@ const UserProfile = () => {
             width: 280,
             elevation: 5,
             borderRadius: 10,
-          }}>
+          }}
+          onPress={() => signOut()}>
           <Text
             style={{
               color: '#434343',
