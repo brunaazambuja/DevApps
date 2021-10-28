@@ -12,13 +12,68 @@ import AnimalProfile from '../components/AnimalProfile';
 import Notifications from '../components/Notifications';
 import Chat from '../components/ChatScreen';
 import Credits from '../components/Credits';
+import UserProfile from '../components/UserProfile';
 
 import { LoginContext } from '../utils/LoginProvider';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import FirebaseUtil from '../utils/FirebaseUtil';
 
 const App = createNativeStackNavigator();
+
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
+const Drawer = createDrawerNavigator();
+const Home = () => {
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen
+        name="MyProfile"
+        options={{
+          headerStyle: { backgroundColor: '#ffd358' },
+          title: 'Meu Perfil',
+          unmountOnBlur:true,
+        }}
+        component={UserProfile}
+      />
+      <Drawer.Screen
+        name="MyAnimals"
+        options={{
+          headerStyle: { backgroundColor: '#ffd358' },
+          title: 'Meus Animais',
+          unmountOnBlur:true,
+        }}
+        component={MyAnimals}
+      />
+      <Drawer.Screen
+        name="AnimalRegister"
+        options={{
+          headerStyle: { backgroundColor: '#fee29b' },
+          title: 'Cadastro de Animais',
+          unmountOnBlur:true,
+        }}
+        component={Cadastro_Animais}
+      />
+      <Drawer.Screen
+        name="AvailableAnimals"
+        options={{
+          headerStyle: { backgroundColor: '#ffd358' },
+          title: 'Animais Disponíveis',
+          unmountOnBlur:true,
+        }}
+        component={AvailableAnimals}
+      />
+      <Drawer.Screen
+        name="Notifications"
+        options={{
+          headerStyle: { backgroundColor: '#ffd358' },
+          title: 'Notificações',
+          unmountOnBlur:true,
+        }}
+        component={Notifications}
+      />
+    </Drawer.Navigator>
+  );
+};
 
 const Routes = () => {
   const user = useContext(LoginContext);
@@ -33,14 +88,10 @@ const Routes = () => {
         }}>
         {user ? (
           <>
-            <App.Screen name="Home" component={Router} />
             <App.Screen
-              name="AnimalRegister"
-              options={{
-                headerStyle: { backgroundColor: '#fee29b' },
-                title: 'Cadastro de Animais',
-              }}
-              component={Cadastro_Animais}
+              name="Home"
+              component={Home}
+              options={{ headerShown: false }}
             />
             <App.Screen
               name="AnimalRegister2"
@@ -49,30 +100,6 @@ const Routes = () => {
                 title: 'Cadastro de Animais',
               }}
               component={TelaFinalCadastroAnimais}
-            />
-            <App.Screen
-              name="AvailableAnimals"
-              options={{
-                headerStyle: { backgroundColor: '#ffd358' },
-                title: 'Animais Disponíveis',
-              }}
-              component={AvailableAnimals}
-            />
-            <App.Screen
-              name="MyAnimals"
-              options={{
-                headerStyle: { backgroundColor: '#ffd358' },
-                title: 'Meus Animais',
-              }}
-              component={MyAnimals}
-            />
-            <App.Screen
-              name="Notifications"
-              options={{
-                headerStyle: { backgroundColor: '#ffd358' },
-                title: 'Notificações',
-              }}
-              component={Notifications}
             />
             <App.Screen
               name="AnimalProfile"

@@ -201,9 +201,7 @@ export const CoreComum_2 = (props) => {
         setTButton(!tButton);
         try {
             props.createAnimal();
-            navigation.dispatch(
-                StackActions.popToTop());
-            navigation.navigate('AnimalRegister2');
+            navigation.reset({index: 0, routes:[{name:'AnimalRegister2'}]});
         } catch (e) {}
     }
 
